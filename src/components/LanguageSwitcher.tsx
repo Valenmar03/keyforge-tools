@@ -5,7 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { Globe } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 
-import type { AppLocale } from "../../i18n/request";
+import type { AppLocale } from "../i18n/request";
 
 export default function LanguageSwitcher() {
   const locale = useLocale() as AppLocale;

@@ -12,8 +12,8 @@ export default getRequestConfig(async ({ locale }) => {
       : defaultLocale;
 
   const messages = {
-    es: (await import("../messages/es.json")).default,
-    en: (await import("../messages/en.json")).default,
+    es: (await import("../../messages/es.json")).default,
+    en: (await import("../../messages/en.json")).default,
   } satisfies Record<AppLocale, any>;
 
   return {
