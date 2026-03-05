@@ -35,6 +35,10 @@ console.log(greeting);
 
 ---
 
+- [x] Create proyect
+- [ ] Install dependencies
+---
+
 | Column 1 | Column 2 |
 |----------|----------|
 | Cell 1   | Cell 2   |
