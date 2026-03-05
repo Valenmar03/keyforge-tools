@@ -33,6 +33,7 @@
     "searchPlaceholder": "Busca herramientas... (ej., password, json, base64)",
     "browseAllTools": "Ver todas las herramientas",
     "viewCategories": "Ver categorías",
+    "tools": "Herramientas",
     "popularToolsTitle": "Herramientas populares",
     "popularToolsSubtitle": "Utilidades para desarrolladores más usadas",
     "toolCategoriesTitle": "Categorías de herramientas",
@@ -463,6 +464,256 @@
           "answer": "Sí, con el botón “Copy HTML”."
         }
       ]
+    }
+  },
+  "toolsData": {
+    "categories": {
+      "security": {
+        "name": "Seguridad",
+        "description": "Generadores de contraseñas, herramientas de hash y utilidades de seguridad para proteger tus datos."
+      },
+      "dev-utilities": {
+        "name": "Utilidades Dev",
+        "description": "Formateadores JSON, codificadores, convertidores y herramientas esenciales para desarrolladores."
+      },
+      "generators": {
+        "name": "Generadores",
+        "description": "Cadenas aleatorias, colores, Lorem Ipsum y herramientas de manipulación de texto."
+      }
+    },
+    "tools": {
+      "password-generator": {
+        "title": "Generador de Contraseñas",
+        "description": "Generá contraseñas aleatorias criptográficamente seguras con longitud y conjuntos de caracteres personalizables.",
+        "keywords": ["contraseña", "segura", "aleatoria", "generador", "contraseña fuerte"],
+        "seoContent": "## ¿Qué es un generador de contraseñas?\nCrea contraseñas impredecibles usando aleatoriedad criptográficamente segura.\n\n## ¿Por qué usarlo?\n- Contraseñas únicas por cuenta\n- Más resistencia a fuerza bruta\n- Ayuda a cumplir políticas de seguridad\n\n## Privacidad\nCorre 100% en tu navegador. No se envía nada a servidores.",
+        "faq": [
+          { "q": "¿Este generador es seguro?", "a": "Sí. Usa aleatoriedad criptográficamente segura del navegador." },
+          { "q": "¿Se guardan o se envían mis contraseñas?", "a": "No. Todo se ejecuta localmente en tu dispositivo." },
+          { "q": "¿Qué hace fuerte a una contraseña?", "a": "Longitud (16+), aleatoriedad y mezcla de caracteres." },
+          { "q": "¿Puedo usarlo offline?", "a": "Sí, una vez cargada la página." }
+        ]
+      },
+
+      "password-strength-checker": {
+        "title": "Verificador de Fortaleza de Contraseñas",
+        "description": "Analizá la fortaleza con estimación de entropía, detección de patrones y sugerencias de mejora.",
+        "keywords": ["contraseña", "fortaleza", "verificador", "entropía", "auditoría"],
+        "seoContent": "## ¿Qué es la fortaleza?\nMide qué tan difícil es adivinar una contraseña.\n\n## Qué evaluamos\n- Longitud y variedad\n- Patrones comunes (123, qwerty)\n- Entropía estimada\n\n## Privacidad\nEl análisis es local y la contraseña no sale de tu equipo.",
+        "faq": [
+          { "q": "¿Es seguro pegar mi contraseña real acá?", "a": "Sí. El análisis corre localmente en tu navegador." },
+          { "q": "¿Qué es la entropía?", "a": "Una medida de aleatoriedad en bits; más alto es mejor." },
+          { "q": "¿Por qué una contraseña 'compleja' puntúa bajo?", "a": "Porque patrones previsibles (ej. Password123!) se consideran débiles." }
+        ]
+      },
+
+      "random-token-generator": {
+        "title": "Generador de Tokens Aleatorios",
+        "description": "Creá tokens seguros en hex, base64 o alfanumérico para sesiones, CSRF y más.",
+        "keywords": ["token", "aleatorio", "hex", "base64", "sesión", "CSRF"],
+        "seoContent": "## ¿Qué es un token aleatorio?\nUna cadena segura para sesiones, CSRF, links de reseteo, etc.\n\n## Formatos\nHex, Base64, Base64 URL-safe y alfanumérico.\n\n## Seguridad\nSe genera con aleatoriedad segura del navegador.",
+        "faq": [
+          { "q": "¿Cuánta entropía necesito?", "a": "128 bits mínimo para tokens; 256 bits para API keys." },
+          { "q": "¿Hex vs Base64?", "a": "Base64 es más compacto; hex es simple y común en DB." },
+          { "q": "¿Sirve para producción?", "a": "Sí, usa aleatoriedad criptográficamente segura." }
+        ]
+      },
+
+      "api-key-generator": {
+        "title": "Generador de API Keys",
+        "description": "Generá API keys seguras con prefijos, formatos y longitudes personalizables.",
+        "keywords": ["API key", "secret key", "autenticación", "token"],
+        "seoContent": "## ¿Qué es una API key?\nUn secreto para autenticar requests a una API.\n\n## Buenas prácticas\n- Prefijos (sk_, pk_, live_, test_)\n- Rotación periódica\n- Guardar en un gestor de secretos\n\n## Tip\nEn DB, almacená hashes cuando sea posible.",
+        "faq": [
+          { "q": "¿Qué prefijo conviene usar?", "a": "Común: sk_ (secreta), pk_ (pública) + live_/test_ por entorno." },
+          { "q": "¿Qué longitud debería tener?", "a": "Como mínimo 32 bytes (~256 bits) en producción." },
+          { "q": "¿Conviene hashear las API keys guardadas?", "a": "Sí, si podés, guardá solo el hash (ej. SHA-256)." }
+        ]
+      },
+
+      "bcrypt-hash-generator": {
+        "title": "Generador de Hash Bcrypt",
+        "description": "Generá hashes bcrypt con factor de costo ajustable para almacenamiento seguro de contraseñas.",
+        "keywords": ["bcrypt", "hash", "hash de contraseña", "seguridad"],
+        "seoContent": "## ¿Qué es bcrypt?\nUn hash lento diseñado para resistir ataques de fuerza bruta.\n\n## Cost factor\nMás alto = más lento = más difícil de atacar.\n\n## Importante\nEn apps reales, hasheá en el servidor (no en el cliente).",
+        "faq": [
+          { "q": "¿Qué cost factor uso?", "a": "El más alto que mantenga el hash bajo ~500ms en tu server. 12 suele ser buen inicio." },
+          { "q": "¿Es mejor que SHA-256 para contraseñas?", "a": "Sí, porque bcrypt es lento y usa salt." },
+          { "q": "¿Se puede desencriptar un bcrypt?", "a": "No. Es one-way; solo se verifica comparando." }
+        ]
+      },
+
+      "jwt-decoder": {
+        "title": "Decodificador JWT",
+        "description": "Decodificá e inspeccioná JWT para ver header, payload y datos de la firma.",
+        "keywords": ["JWT", "JSON Web Token", "decode", "autenticación", "token"],
+        "seoContent": "## ¿Qué es un JWT?\nFormato compacto: header.payload.signature.\n\n## Esta herramienta\nDecodifica para debug.\n\n## Ojo\nDecodificar no es verificar firma; verificá del lado del servidor.",
+        "faq": [
+          { "q": "¿Verifica la firma del JWT?", "a": "No. Solo muestra el contenido decodificado." },
+          { "q": "¿Se puede leer el JWT sin el secreto?", "a": "Sí. El payload está codificado Base64URL, no encriptado." },
+          { "q": "¿Por qué aparece expirado?", "a": "Revisá el claim exp (Unix time) contra la hora actual." }
+        ]
+      },
+
+      "uuid-generator": {
+        "title": "Generador de UUID",
+        "description": "Generá UUIDs (v4) compatibles con RFC 4122 usando aleatoriedad segura.",
+        "keywords": ["UUID", "GUID", "ID único", "identificador", "v4"],
+        "seoContent": "## ¿Qué es un UUID?\nUn identificador de 128 bits diseñado para ser único globalmente.\n\n## Usos\nClaves en DB, correlation IDs, sistemas distribuidos.\n\n## v4\nUUID aleatorio con aleatoriedad segura.",
+        "faq": [
+          { "q": "¿Qué tan probable es una colisión?", "a": "En la práctica es despreciable a escala real." },
+          { "q": "¿Conviene UUID como PK en DB?", "a": "Depende: excelente en distribuidos; puede impactar índices." },
+          { "q": "¿Cumple RFC 4122?", "a": "Sí, sigue el estándar v4." }
+        ]
+      },
+
+      "json-formatter": {
+        "title": "Formateador y Validador JSON",
+        "description": "Formateá, validá y embellecé JSON con detección de errores.",
+        "keywords": ["JSON", "formateador", "beautify", "validar", "pretty print"],
+        "seoContent": "## Formateo JSON\nHace el JSON legible y valida sintaxis.\n\n## Errores comunes\nComas finales, comillas simples, keys sin comillas, comentarios.\n\n## Tip\nMinify para payloads; pretty para debug.",
+        "faq": [
+          { "q": "¿Por qué mi JSON es inválido?", "a": "Típico: coma final, comillas simples, keys sin comillas o comentarios." },
+          { "q": "¿Puedo usar comentarios en JSON?", "a": "JSON estándar no. Considerá JSONC/JSON5." },
+          { "q": "¿Cómo lo minifico?", "a": "Usá la opción Minify en la herramienta." }
+        ]
+      },
+
+      "base64-encoder-decoder": {
+        "title": "Codificador/Decodificador Base64",
+        "description": "Codificá texto a Base64 o decodificá Base64 a texto plano.",
+        "keywords": ["base64", "encode", "decode", "binario", "texto"],
+        "seoContent": "## Base64\nCodificación binario-a-texto usada en APIs, emails, JWT y data URLs.\n\n## No es encriptación\nCualquiera puede decodificar Base64. No lo uses para ocultar secretos.",
+        "faq": [
+          { "q": "¿Base64 es seguro?", "a": "No. Es codificación, no encriptación." },
+          { "q": "¿Por qué aumenta el tamaño?", "a": "Agrega ~33% por el overhead del encoding." },
+          { "q": "¿Cuándo usar Base64 URL-safe?", "a": "Cuando el valor va en una URL." }
+        ]
+      },
+
+      "url-encoder-decoder": {
+        "title": "Codificador/Decodificador URL",
+        "description": "Codificá caracteres especiales para URLs o decodificá strings percent-encoded.",
+        "keywords": ["URL", "encode", "decode", "percent encoding", "URI"],
+        "seoContent": "## URL encoding\nConvierte caracteres inseguros a %XX.\n\n## Usos\nQuery params, formularios, APIs, URLs con i18n.\n\n## Tip\nencodeURIComponent para valores individuales.",
+        "faq": [
+          { "q": "¿Cuándo debo codificar?", "a": "Codificá input de usuario antes de armar una URL." },
+          { "q": "¿Por qué espacios son + o %20?", "a": "+ es común en query strings; %20 es el encoding estándar." },
+          { "q": "¿Codifico URL completa o parámetro?", "a": "encodeURI para URL completa; encodeURIComponent para params." }
+        ]
+      },
+
+      "timestamp-converter": {
+        "title": "Conversor de Timestamps",
+        "description": "Convertí entre timestamps Unix, ISO 8601 y formatos legibles.",
+        "keywords": ["timestamp", "Unix", "epoch", "fecha", "hora", "ISO 8601"],
+        "seoContent": "## Unix timestamp\nSegundos desde 1970-01-01 UTC.\n\n## Ojo\nJavaScript usa milisegundos (13 dígitos) vs segundos (10 dígitos).",
+        "faq": [
+          { "q": "¿Segundos o milisegundos?", "a": "10 dígitos suele ser segundos; 13 dígitos suele ser milisegundos." },
+          { "q": "¿Timestamp actual en JS?", "a": "Math.floor(Date.now() / 1000) para segundos." },
+          { "q": "¿Por qué mi DB muestra distinto?", "a": "Cada DB maneja precisión y timezone de forma distinta." }
+        ]
+      },
+
+      "regex-tester": {
+        "title": "Probador de Regex",
+        "description": "Probá y depurá expresiones regulares con matching en tiempo real y grupos.",
+        "keywords": ["regex", "expresión regular", "patrón", "match", "test"],
+        "seoContent": "## Regex\nPatrones para buscar y validar texto.\n\n## Útil para\nValidación, parsing y reemplazos.\n\n## Tip\nAcordate de escapar caracteres y elegir flags (g,i,m).",
+        "faq": [
+          { "q": "¿Por qué no matchea?", "a": "Revisá escapes, anchors (^ $) y flags." },
+          { "q": "¿Qué hace el flag g?", "a": "Busca todas las coincidencias, no solo la primera." },
+          { "q": "¿Cómo matcheo múltiples líneas?", "a": "Usá flag m y/o dotAll según motor." }
+        ]
+      },
+
+      "random-string-generator": {
+        "title": "Generador de Strings Aleatorios",
+        "description": "Generá cadenas aleatorias con conjuntos de caracteres y longitudes personalizables.",
+        "keywords": ["aleatorio", "string", "generador", "caracteres", "texto"],
+        "seoContent": "## Strings aleatorios\nÚtiles para placeholders, tests e identificadores.\n\n## Opciones\nMay/min, números, símbolos y charset custom.",
+        "faq": [
+          { "q": "¿Son realmente aleatorias?", "a": "Usa aleatoriedad criptográficamente segura del navegador." },
+          { "q": "¿Puedo generar patrones?", "a": "Esto es aleatorio puro; patrones requieren otra herramienta." }
+        ]
+      },
+
+      "lorem-ipsum-generator": {
+        "title": "Generador Lorem Ipsum",
+        "description": "Generá texto placeholder como párrafos, oraciones o palabras.",
+        "keywords": ["lorem ipsum", "placeholder", "texto dummy", "relleno"],
+        "seoContent": "## Lorem Ipsum\nTexto de relleno clásico para diseño y desarrollo.\n\n## Uso\nMaquetar sin distraerte con contenido real.",
+        "faq": [
+          { "q": "¿Qué significa Lorem Ipsum?", "a": "Proviene de latín alterado (Cicerón) usado como texto de relleno." },
+          { "q": "¿Lo uso en producción?", "a": "No, es para mockups y etapas de diseño." }
+        ]
+      },
+
+      "random-number-generator": {
+        "title": "Generador de Números Aleatorios",
+        "description": "Generá números aleatorios en un rango (enteros o decimales).",
+        "keywords": ["aleatorio", "número", "entero", "decimal", "rango"],
+        "seoContent": "## Números aleatorios\nPara tests, juegos y simulaciones.\n\n## Opciones\nMin/max, entero/decimal, generación en lote.",
+        "faq": [
+          { "q": "¿Qué tan aleatorios son?", "a": "Se generan con aleatoriedad segura del navegador." },
+          { "q": "¿Puedo obtener valores únicos?", "a": "Sí, activando modo único al generar múltiples enteros." }
+        ]
+      },
+
+      "random-color-generator": {
+        "title": "Generador de Colores Aleatorios",
+        "description": "Generá colores aleatorios en HEX, RGB y HSL con preview y opciones de paleta.",
+        "keywords": ["color", "aleatorio", "hex", "RGB", "HSL", "paleta"],
+        "seoContent": "## Colores aleatorios\nIdeal para experimentar UI y buscar inspiración.\n\n## Formatos\nHEX, RGB, HSL y preview rápido.",
+        "faq": [
+          { "q": "¿Cómo armo paletas más lindas?", "a": "Usá reglas de armonía (complementarios/análogos) si está disponible." },
+          { "q": "¿Puedo limitar rangos?", "a": "Sí, limitando hue/saturación/luz si la herramienta lo permite." }
+        ]
+      },
+
+      "slugify-text": {
+        "title": "Convertir a Slug",
+        "description": "Convertí texto a slugs amigables para URL con separadores y transliteración.",
+        "keywords": ["slug", "URL", "SEO", "permalink", "amigable URL"],
+        "seoContent": "## Slug\nVersión amigable para URL de un texto.\n\nEjemplo\n\"Mi Post!\" → \"mi-post\".\n\n## Tip\nGuiones medios suelen ser mejores para SEO.",
+        "faq": [
+          { "q": "¿Guiones o guiones bajos?", "a": "Guiones medios: los buscadores los interpretan como separadores de palabras." },
+          { "q": "¿Qué largo conviene?", "a": "Corto y claro (muchas veces < ~60 caracteres)." }
+        ]
+      },
+
+      "text-case-converter": {
+        "title": "Convertidor de Mayúsculas/Minúsculas",
+        "description": "Convertí texto entre lowercase, UPPERCASE, Title Case, camelCase, snake_case y más.",
+        "keywords": ["case", "mayúsculas", "minúsculas", "camelCase", "snake_case"],
+        "seoContent": "## Conversión de case\nTransformá texto rápido para programación y escritura.\n\nIncluye\ncamelCase, PascalCase, snake_case, kebab-case, CONSTANT_CASE.",
+        "faq": [
+          { "q": "¿camelCase vs PascalCase?", "a": "camelCase arranca en minúscula; PascalCase en mayúscula." },
+          { "q": "¿snake_case vs kebab-case?", "a": "snake_case común en código/DB; kebab-case común en URLs/CSS." }
+        ]
+      },
+
+      "whitespace-cleaner": {
+        "title": "Limpiador de Espacios en Blanco",
+        "description": "Eliminá espacios extra, recortá líneas, normalizá saltos de línea y limpiá texto desprolijo.",
+        "keywords": ["espacios", "trim", "limpiar", "saltos de línea", "whitespace"],
+        "seoContent": "## Limpieza de whitespace\nArreglá texto pegado desde PDFs, mails o logs.\n\nAcciones\nTrim, colapsar espacios, normalizar saltos de línea.",
+        "faq": [
+          { "q": "¿Por qué cambian los saltos de línea?", "a": "Windows usa CRLF; Linux/macOS usan LF." },
+          { "q": "¿Qué son caracteres invisibles?", "a": "Espacios de ancho cero u otros whitespaces que rompen comparaciones." }
+        ]
+      },
+
+      "markdown-preview": {
+        "title": "Vista Previa Markdown",
+        "description": "Escribí y previsualizá Markdown con render en tiempo real.",
+        "keywords": ["markdown", "preview", "render", "formato", "documentación"],
+        "seoContent": "## Preview de Markdown\nEscribí Markdown y mirá el resultado al instante.\n\nIdeal para\nREADME, documentación y notas.",
+        "faq": [
+          { "q": "¿Qué variante de Markdown soporta?", "a": "Lo usual es GitHub-flavored Markdown (GFM)." },
+          { "q": "¿Puedo exportar HTML?", "a": "Si la herramienta lo ofrece, usá Copy HTML / Export." }
+        ]
+      }
     }
   }
 }

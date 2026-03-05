@@ -17,11 +17,11 @@ import { useMemo, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 
 import {
-  categories,
-  tools,
-  getToolText,
-  getCategoryText,
+  getCategories,
+  getTools,
+  searchTools,
   type Locale,
+  type Translator,
 } from "@/lib/tools";
 import ToolCard from "@/components/tools/ToolCard";
 
@@ -40,29 +40,22 @@ const categoryColors = {
 export default function Home() {
   const t = useTranslations("home");
   const locale = useLocale() as Locale;
+  const tTools = useTranslations("toolsData") as unknown as Translator;
 
   const withLocale = (path: string) =>
     `/${locale}${path.startsWith("/") ? path : `/${path}`}`;
 
   const [searchQuery, setSearchQuery] = useState("");
 
+  const categories = useMemo(() => getCategories(tTools), [tTools]);
+  const tools = useMemo(() => getTools(tTools), [tTools]);
+
   const popularTools = tools.slice(0, 6);
 
   const filteredTools = useMemo(() => {
     if (!searchQuery.trim()) return [];
-    const query = searchQuery.toLowerCase();
-
-    return tools
-      .filter((tool) => {
-        const txt = getToolText(tool, locale);
-        return (
-          txt.title.toLowerCase().includes(query) ||
-          txt.description.toLowerCase().includes(query) ||
-          txt.keywords.some((k) => k.toLowerCase().includes(query))
-        );
-      })
-      .slice(0, 8);
-  }, [searchQuery, locale]);
+    return searchTools(searchQuery, tTools).slice(0, 8);
+  }, [searchQuery, tTools]);
 
   return (
     <div className="min-h-screen bg-white">
@@ -106,31 +99,28 @@ export default function Home() {
               {/* Search Results Dropdown */}
               {filteredTools.length > 0 && (
                 <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-slate-200 rounded-xl shadow-xl overflow-hidden z-50">
-                  {filteredTools.map((tool) => {
-                    const txt = getToolText(tool, locale);
-                    return (
-                      <Link
-                        key={tool.slug}
-                        href={withLocale(`/tools/${tool.slug}`)}
-                        className="flex items-center gap-3 px-4 py-3 hover:bg-slate-50 transition-colors"
+                  {filteredTools.map((tool) => (
+                    <Link
+                      key={tool.slug}
+                      href={withLocale(`/tools/${tool.slug}`)}
+                      className="flex items-center gap-3 px-4 py-3 hover:bg-slate-50 transition-colors"
+                    >
+                      <div
+                        className={`w-8 h-8 rounded-lg bg-gradient-to-br ${categoryColors[tool.category]} flex items-center justify-center`}
                       >
-                        <div
-                          className={`w-8 h-8 rounded-lg bg-gradient-to-br ${categoryColors[tool.category]} flex items-center justify-center`}
-                        >
-                          <Key className="w-4 h-4 text-white" />
+                        <Key className="w-4 h-4 text-white" />
+                      </div>
+                      <div className="flex-1 text-left">
+                        <div className="font-medium text-slate-900">
+                          {tool.title}
                         </div>
-                        <div className="flex-1 text-left">
-                          <div className="font-medium text-slate-900">
-                            {txt.title}
-                          </div>
-                          <div className="text-sm text-slate-500 truncate">
-                            {txt.description}
-                          </div>
+                        <div className="text-sm text-slate-500 truncate">
+                          {tool.description}
                         </div>
-                        <ArrowRight className="w-4 h-4 text-slate-400" />
-                      </Link>
-                    );
-                  })}
+                      </div>
+                      <ArrowRight className="w-4 h-4 text-slate-400" />
+                    </Link>
+                  ))}
                 </div>
               )}
             </div>
@@ -199,8 +189,6 @@ export default function Home() {
               const toolCount = tools.filter((t) => t.category === cat.id)
                 .length;
 
-              const catText = getCategoryText(cat, locale);
-
               return (
                 <Link
                   key={cat.id}
@@ -214,13 +202,13 @@ export default function Home() {
                   </div>
 
                   <h3 className="text-xl font-semibold text-slate-900 mb-2">
-                    {catText.name}
+                    {cat.name}
                   </h3>
-                  <p className="text-slate-600 mb-4">{catText.description}</p>
+                  <p className="text-slate-600 mb-4">{cat.description}</p>
 
                   <div className="flex items-center text-sm text-slate-500">
                     <span>
-                      {t("toolsCount", { count: toolCount })}
+                      {`${toolCount} ${t("tools")}`}
                     </span>
                     <ArrowRight className="w-4 h-4 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
                   </div>

@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import type { ComponentType } from "react";
+import { getTranslations } from "next-intl/server";
 
 import ToolLayout from "@/components/tools/ToolLayout";
-import { getToolBySlug, getToolText, type Locale } from "@/lib/tools";
+import {
+  getToolBySlug,
+  getToolText,
+  type Locale,
+  type Translator,
+} from "@/lib/tools";
 
 // Tool components
 import ApiKeyGenerator from "@/components/tools/security/ApiKeyGenerator";
@@ -56,19 +62,24 @@ const toolComponents: Record<string, ComponentType> = {
 
 type Params = { locale: Locale; slug: string };
 
-// ✅ Next 15/16: params puede ser Promise
+// ✅ Server: metadata
 export async function generateMetadata({
   params,
 }: {
   params: Promise<Params>;
 }): Promise<Metadata> {
   const { locale, slug } = await params;
-  const tool = getToolBySlug(slug);
 
-  if (!tool) return { title: "Tool Not Found" };
+  // ✅ Server translations (NO useTranslations acá)
+  const tTools = (await getTranslations({
+    locale,
+    namespace: "toolsData",
+  })) as unknown as Translator;
 
-  const txt = getToolText(tool, locale);
-  const urlPath = `/${locale}/tools/${tool.slug}`;
+  const txt = getToolText(slug, tTools);
+  if (!txt) return { title: "Tool Not Found" };
+
+  const urlPath = `/${locale}/tools/${slug}`;
 
   return {
     title: `${txt.title} — KeyForge Tools`,
@@ -81,13 +92,14 @@ export async function generateMetadata({
     alternates: {
       canonical: urlPath,
       languages: {
-        es: `/es/tools/${tool.slug}`,
-        en: `/en/tools/${tool.slug}`,
+        es: `/es/tools/${slug}`,
+        en: `/en/tools/${slug}`,
       },
     },
   };
 }
 
+// ✅ Server: page
 export default async function ToolPage({
   params,
 }: {
@@ -95,8 +107,14 @@ export default async function ToolPage({
 }) {
   const { locale, slug } = await params;
 
-  const tool = getToolBySlug(slug);
-  const ToolComponent = tool ? toolComponents[slug] : undefined;
+  const tTools = (await getTranslations({
+    locale,
+    namespace: "toolsData",
+  })) as unknown as Translator;
+
+  // ✅ tool ya viene localizado (title/desc/seo/faq) desde i18n
+  const tool = getToolBySlug(slug, tTools);
+  const ToolComponent = toolComponents[slug];
 
   if (!tool || !ToolComponent) notFound();
 

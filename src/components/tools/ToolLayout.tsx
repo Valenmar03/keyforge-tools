@@ -1,13 +1,15 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import { ChevronRight, Shield, Code, Sparkles, ArrowRight } from "lucide-react";
 import {
-  categories,
   getRelatedTools,
   type Tool,
   type Locale,
   getToolText,
-  getCategoryText,
+  getCategories,
+  type Translator,
 } from "@/lib/tools";
 import ReactMarkdown from "react-markdown";
 import {
@@ -37,11 +39,13 @@ type Props = {
 };
 
 export default function ToolLayout({ tool, children, locale }: Props) {
-  const relatedTools = getRelatedTools(tool);
-  const category = categories.find((c) => c.id === tool.category);
+  const t = useTranslations("toolLayout");
+  const tTools = useTranslations("toolsData") as unknown as Translator;
+
+  const categories = getCategories(tTools);
+  const category = categories.find((c) => c.id === tool.category) || null;
 
   const CategoryIcon = categoryIcons[tool.category];
-  const t = useTranslations("toolLayout");
 
   const withLocale = (path: string) =>
     `/${locale}${path.startsWith("/") ? path : `/${path}`}`;
@@ -53,8 +57,8 @@ export default function ToolLayout({ tool, children, locale }: Props) {
   }
 
   // Textos localizados (tool + category)
-  const toolText = getToolText(tool, locale);
-  const categoryText = category ? getCategoryText(category, locale) : null;
+  const toolText = getToolText(tool.slug, tTools)!;
+  const categoryText = category;
 
   // JSON-LD FAQ Schema (localizado)
   const faqSchema =
@@ -320,7 +324,7 @@ export default function ToolLayout({ tool, children, locale }: Props) {
       ) : null}
 
       {/* Related Tools */}
-      {!!relatedTools.length && (
+      {!!getRelatedTools(tool, tTools).length && (
         <section className="py-12 bg-slate-50 border-t border-slate-100">
           <div className="max-w-4xl mx-auto px-6">
             <div className="flex items-center justify-between mb-6">
@@ -336,9 +340,9 @@ export default function ToolLayout({ tool, children, locale }: Props) {
             </div>
 
             <div className="grid md:grid-cols-3 gap-4">
-              {relatedTools.map((relatedTool) => {
+              {getRelatedTools(tool, tTools).map((relatedTool) => {
                 const Icon = categoryIcons[relatedTool.category];
-                const relatedText = getToolText(relatedTool, locale);
+                const relatedText = getToolText(relatedTool.slug, tTools)!;
 
                 return (
                   <Link

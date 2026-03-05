@@ -39,8 +39,6 @@ export default function ToolCard({ tool, compact = false }: Props) {
   const Icon = categoryIcons[tool.category];
   const href = `/${locale}/tools/${tool.slug}`;
 
-  const txt = getToolText(tool, locale);
-
   if (compact) {
     return (
       <Link
@@ -58,9 +56,9 @@ export default function ToolCard({ tool, compact = false }: Props) {
 
         <div className="flex-1 min-w-0">
           <h3 className="font-medium text-slate-900 group-hover:text-blue-600 transition-colors truncate">
-            {txt.title}
+            {tool.title}
           </h3>
-          <p className="text-sm text-slate-500 truncate">{txt.description}</p>
+          <p className="text-sm text-slate-500 truncate">{tool.description}</p>
         </div>
 
         <ArrowRight className="w-4 h-4 text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -85,15 +83,15 @@ export default function ToolCard({ tool, compact = false }: Props) {
 
         <div className="flex-1 min-w-0">
           <h3 className="font-semibold text-slate-900 group-hover:text-blue-600 transition-colors mb-1">
-            {txt.title}
+            {tool.title}
           </h3>
 
           <p className="text-sm text-slate-600 line-clamp-2 mb-3">
-            {txt.description}
+            {tool.description}
           </p>
 
           <div className="flex flex-wrap gap-2">
-            {txt.keywords.slice(0, 3).map((keyword) => (
+            {tool.keywords.slice(0, 3).map((keyword) => (
               <span
                 key={keyword}
                 className={cn(

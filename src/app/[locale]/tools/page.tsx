@@ -14,13 +14,10 @@ import {
 } from "lucide-react";
 
 import {
-  tools,
-  categories,
+  getCategories,
+  getTools,
   type CategoryId,
-  type Locale,
-  normalizeLocale,
-  getToolText,
-  getCategoryText,
+  type Translator,
 } from "@/lib/tools";
 
 import ToolCard from "@/components/tools/ToolCard";
@@ -38,10 +35,7 @@ type ActiveCategory = "all" | CategoryId;
 type ViewMode = "grid" | "list";
 
 export default function ToolsPage() {
-  // next-intl devuelve string, lo normalizamos
-  const nextIntlLocale = useLocale();
-  const locale = normalizeLocale(nextIntlLocale) as Locale;
-
+  const locale = useLocale();
   const withLocale = (path: string) =>
     `/${locale}${path.startsWith("/") ? path : `/${path}`}`;
 
@@ -53,6 +47,10 @@ export default function ToolsPage() {
   const [viewMode, setViewMode] = useState<ViewMode>("grid");
 
   const t = useTranslations("toolsPage");
+  const tTools = useTranslations("toolsData") as unknown as Translator;
+
+  const categories = useMemo(() => getCategories(tTools), [tTools]);
+  const allTools = useMemo(() => getTools(tTools), [tTools]);
 
   // Sync category from URL (?category=security) on load + when it changes
   useEffect(() => {
@@ -79,35 +77,34 @@ export default function ToolsPage() {
   };
 
   const filteredTools = useMemo(() => {
-    let result = tools;
+    let result = allTools;
 
     if (activeCategory !== "all") {
-      result = result.filter((t) => t.category === activeCategory);
+      result = result.filter((x) => x.category === activeCategory);
     }
 
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
       result = result.filter((tool) => {
-        const txt = getToolText(tool, locale);
         return (
-          txt.title.toLowerCase().includes(q) ||
-          txt.description.toLowerCase().includes(q) ||
-          txt.keywords.some((k) => k.toLowerCase().includes(q))
+          tool.title.toLowerCase().includes(q) ||
+          tool.description.toLowerCase().includes(q) ||
+          tool.keywords.some((k) => k.toLowerCase().includes(q))
         );
       });
     }
 
     return result;
-  }, [searchQuery, activeCategory, locale]);
+  }, [searchQuery, activeCategory, tTools]);
 
   const toolsByCategory = useMemo(() => {
     if (activeCategory !== "all" || searchQuery.trim()) return null;
 
     return categories.map((cat) => ({
       ...cat,
-      tools: tools.filter((t) => t.category === cat.id),
+      tools: allTools.filter((x) => x.category === cat.id),
     }));
-  }, [activeCategory, searchQuery]);
+  }, [activeCategory, searchQuery, categories, allTools]);
 
   return (
     <div className="min-h-screen bg-white">
@@ -129,7 +126,7 @@ export default function ToolsPage() {
             {t("title")}
           </h1>
           <p className="text-lg text-slate-600 mb-8 max-w-2xl">
-            {t("description", { count: tools.length })}
+            {t("description", { count: allTools.length })}
           </p>
 
           {/* Search */}
@@ -162,13 +159,12 @@ export default function ToolsPage() {
                     : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                 )}
               >
-                {t("allToolsTab", { count: tools.length })}
+                {t("allToolsTab", { count: allTools.length })}
               </button>
 
               {categories.map((cat) => {
                 const Icon = categoryIcons[cat.id];
-                const count = tools.filter((t) => t.category === cat.id).length;
-                const catText = getCategoryText(cat, locale);
+                const count = allTools.filter((x) => x.category === cat.id).length;
 
                 return (
                   <button
@@ -182,7 +178,7 @@ export default function ToolsPage() {
                     )}
                   >
                     <Icon className="w-4 h-4" />
-                    {catText.name} ({count})
+                    {cat.name} ({count})
                   </button>
                 );
               })}
@@ -223,15 +219,12 @@ export default function ToolsPage() {
             <p className="text-sm text-slate-500 mb-6">
               {t("resultsFound", {
                 count: filteredTools.length,
-                suffix:
-                  filteredTools.length !== 1 ? t("resultsSuffixPlural") : "",
+                suffix: filteredTools.length !== 1 ? t("resultsSuffixPlural") : "",
                 categoryPart:
                   activeCategory !== "all"
                     ? t("resultsInCategory", {
-                        categoryName: getCategoryText(
-                          categories.find((c) => c.id === activeCategory)!,
-                          locale
-                        ).name,
+                        categoryName:
+                          categories.find((c) => c.id === activeCategory)?.name ?? "",
                       })
                     : "",
               })}
@@ -243,7 +236,6 @@ export default function ToolsPage() {
             <div className="space-y-12">
               {toolsByCategory.map((cat) => {
                 const Icon = categoryIcons[cat.id];
-                const catText = getCategoryText(cat, locale);
 
                 return (
                   <div key={cat.id}>
@@ -267,10 +259,10 @@ export default function ToolsPage() {
                       </div>
                       <div>
                         <h2 className="text-xl font-bold text-slate-900">
-                          {catText.name}
+                          {cat.name}
                         </h2>
                         <p className="text-sm text-slate-500">
-                          {catText.description}
+                          {cat.description}
                         </p>
                       </div>
                     </div>
@@ -303,7 +295,11 @@ export default function ToolsPage() {
               )}
             >
               {filteredTools.map((tool) => (
-                <ToolCard key={tool.slug} tool={tool} compact={viewMode === "list"} />
+                <ToolCard
+                  key={tool.slug}
+                  tool={tool}
+                  compact={viewMode === "list"}
+                />
               ))}
             </div>
           )}
