@@ -11,36 +11,38 @@ import {
   Zap,
   Eye,
   Key,
-  Hash,
-  FileJson,
-  Link2,
-  Clock,
-  Regex,
-  Type,
-  Palette,
-  FileText,
   CheckCircle,
 } from "lucide-react";
 import { useMemo, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
-import { categories, tools } from "@/lib/tools";
+import {
+  categories,
+  tools,
+  getToolText,
+  getCategoryText,
+  type Locale,
+} from "@/lib/tools";
 import ToolCard from "@/components/tools/ToolCard";
 
 const categoryIcons = {
   security: Shield,
   "dev-utilities": Code,
   generators: Sparkles,
-};
+} as const;
 
 const categoryColors = {
   security: "from-blue-500 to-indigo-600",
   "dev-utilities": "from-emerald-500 to-teal-600",
   generators: "from-violet-500 to-purple-600",
-};
+} as const;
 
 export default function Home() {
   const t = useTranslations("home");
+  const locale = useLocale() as Locale;
+
+  const withLocale = (path: string) =>
+    `/${locale}${path.startsWith("/") ? path : `/${path}`}`;
 
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -49,15 +51,18 @@ export default function Home() {
   const filteredTools = useMemo(() => {
     if (!searchQuery.trim()) return [];
     const query = searchQuery.toLowerCase();
+
     return tools
-      .filter(
-        (tool) =>
-          tool.title.toLowerCase().includes(query) ||
-          tool.description.toLowerCase().includes(query) ||
-          tool.keywords.some((k) => k.toLowerCase().includes(query))
-      )
+      .filter((tool) => {
+        const txt = getToolText(tool, locale);
+        return (
+          txt.title.toLowerCase().includes(query) ||
+          txt.description.toLowerCase().includes(query) ||
+          txt.keywords.some((k) => k.toLowerCase().includes(query))
+        );
+      })
       .slice(0, 8);
-  }, [searchQuery]);
+  }, [searchQuery, locale]);
 
   return (
     <div className="min-h-screen bg-white">
@@ -66,7 +71,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50" />
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-br from-blue-100/40 to-indigo-100/40 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4" />
 
-        <div className="relative max-w-6xl mx-auto px-6 pt-20 pb-28 ">
+        <div className="relative max-w-6xl mx-auto px-6 pt-20 pb-28">
           <div className="text-center max-w-3xl mx-auto">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 border border-blue-100 rounded-full text-sm text-blue-700 mb-8">
               <Lock className="w-4 h-4" />
@@ -101,40 +106,44 @@ export default function Home() {
               {/* Search Results Dropdown */}
               {filteredTools.length > 0 && (
                 <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-slate-200 rounded-xl shadow-xl overflow-hidden z-50">
-                  {filteredTools.map((tool) => (
-                    <Link
-                      key={tool.slug}
-                      href={`/tools/${tool.slug}`}
-                      className="flex items-center gap-3 px-4 py-3 hover:bg-slate-50 transition-colors"
-                    >
-                      <div
-                        className={`w-8 h-8 rounded-lg bg-gradient-to-br ${categoryColors[tool.category]} flex items-center justify-center`}
+                  {filteredTools.map((tool) => {
+                    const txt = getToolText(tool, locale);
+                    return (
+                      <Link
+                        key={tool.slug}
+                        href={withLocale(`/tools/${tool.slug}`)}
+                        className="flex items-center gap-3 px-4 py-3 hover:bg-slate-50 transition-colors"
                       >
-                        <Key className="w-4 h-4 text-white" />
-                      </div>
-                      <div className="flex-1 text-left">
-                        <div className="font-medium text-slate-900">
-                          {tool.title}
+                        <div
+                          className={`w-8 h-8 rounded-lg bg-gradient-to-br ${categoryColors[tool.category]} flex items-center justify-center`}
+                        >
+                          <Key className="w-4 h-4 text-white" />
                         </div>
-                        <div className="text-sm text-slate-500 truncate">
-                          {tool.description}
+                        <div className="flex-1 text-left">
+                          <div className="font-medium text-slate-900">
+                            {txt.title}
+                          </div>
+                          <div className="text-sm text-slate-500 truncate">
+                            {txt.description}
+                          </div>
                         </div>
-                      </div>
-                      <ArrowRight className="w-4 h-4 text-slate-400" />
-                    </Link>
-                  ))}
+                        <ArrowRight className="w-4 h-4 text-slate-400" />
+                      </Link>
+                    );
+                  })}
                 </div>
               )}
             </div>
 
             <div className="flex items-center justify-center gap-6 mt-8">
               <Link
-                href="/tools"
+                href={withLocale("/tools")}
                 className="inline-flex items-center gap-2 px-6 py-3 bg-slate-900 text-white rounded-xl font-medium hover:bg-slate-800 transition-colors"
               >
                 {t("browseAllTools")}
                 <ArrowRight className="w-4 h-4" />
               </Link>
+
               <a
                 href="#categories"
                 className="text-slate-600 hover:text-slate-900 font-medium transition-colors"
@@ -154,12 +163,11 @@ export default function Home() {
               <h2 className="text-3xl font-bold text-slate-900">
                 {t("popularToolsTitle")}
               </h2>
-              <p className="text-slate-600 mt-2">
-                {t("popularToolsSubtitle")}
-              </p>
+              <p className="text-slate-600 mt-2">{t("popularToolsSubtitle")}</p>
             </div>
+
             <Link
-              href="/tools"
+              href={withLocale("/tools")}
               className="text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1"
             >
               {t("browseAllTools")}
@@ -182,9 +190,7 @@ export default function Home() {
             <h2 className="text-3xl font-bold text-slate-900">
               {t("toolCategoriesTitle")}
             </h2>
-            <p className="text-slate-600 mt-2">
-              {t("toolCategoriesSubtitle")}
-            </p>
+            <p className="text-slate-600 mt-2">{t("toolCategoriesSubtitle")}</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
@@ -193,10 +199,12 @@ export default function Home() {
               const toolCount = tools.filter((t) => t.category === cat.id)
                 .length;
 
+              const catText = getCategoryText(cat, locale);
+
               return (
                 <Link
                   key={cat.id}
-                  href={`/tools?category=${cat.id}`}
+                  href={withLocale(`/tools?category=${cat.id}`)}
                   className="group relative bg-white border border-slate-200 rounded-2xl p-8 hover:shadow-lg hover:shadow-slate-200/50 hover:border-slate-300 transition-all"
                 >
                   <div
@@ -204,12 +212,16 @@ export default function Home() {
                   >
                     <Icon className="w-7 h-7 text-white" />
                   </div>
+
                   <h3 className="text-xl font-semibold text-slate-900 mb-2">
-                    {cat.name}
+                    {catText.name}
                   </h3>
-                  <p className="text-slate-600 mb-4">{cat.description}</p>
+                  <p className="text-slate-600 mb-4">{catText.description}</p>
+
                   <div className="flex items-center text-sm text-slate-500">
-                    <span>{toolCount} tools</span>
+                    <span>
+                      {t("toolsCount", { count: toolCount })}
+                    </span>
                     <ArrowRight className="w-4 h-4 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
                   </div>
                 </Link>
@@ -256,33 +268,15 @@ export default function Home() {
       <section className="py-20 bg-slate-50">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-slate-900">
-              {t("whyTitle")}
-            </h2>
+            <h2 className="text-3xl font-bold text-slate-900">{t("whyTitle")}</h2>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              {
-                icon: Zap,
-                title: t("why.instantResultsTitle"),
-                desc: t("why.instantResultsDesc"),
-              },
-              {
-                icon: Lock,
-                title: t("why.cryptoSecureTitle"),
-                desc: t("why.cryptoSecureDesc"),
-              },
-              {
-                icon: Eye,
-                title: t("why.noTrackingTitle"),
-                desc: t("why.noTrackingDesc"),
-              },
-              {
-                icon: Code,
-                title: t("why.devFocusedTitle"),
-                desc: t("why.devFocusedDesc"),
-              },
+              { icon: Zap, title: t("why.instantResultsTitle"), desc: t("why.instantResultsDesc") },
+              { icon: Lock, title: t("why.cryptoSecureTitle"), desc: t("why.cryptoSecureDesc") },
+              { icon: Eye, title: t("why.noTrackingTitle"), desc: t("why.noTrackingDesc") },
+              { icon: Code, title: t("why.devFocusedTitle"), desc: t("why.devFocusedDesc") },
             ].map((item) => (
               <div
                 key={item.title}
@@ -307,7 +301,7 @@ export default function Home() {
           </h2>
           <p className="text-slate-600 mb-8">{t("ctaSubtitle")}</p>
           <Link
-            href="/tools"
+            href={withLocale("/tools")}
             className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition-colors text-lg"
           >
             {t("ctaButton")}
@@ -318,4 +312,3 @@ export default function Home() {
     </div>
   );
 }
-

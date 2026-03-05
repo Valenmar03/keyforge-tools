@@ -1,41 +1,47 @@
 "use client";
 
 import Link from "next/link";
+import { useLocale, useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 import { useMemo, useState } from "react";
 import { Shield, Code, Sparkles, Key, ChevronDown, Menu, X } from "lucide-react";
-import { useTranslations } from "next-intl";
 import LanguageSwitcher from "./LanguageSwitcher";
 
 function cn(...classes: Array<string | false | null | undefined>) {
   return classes.filter(Boolean).join(" ");
 }
 
-const navItems = [
-  { name: "home", href: "/" },
-  { name: "tools", href: "/tools" },
-  { name: "faq", href: "/faq" },
-] as const;
-
-const categoryLinks = [
-  { id: "security", href: "/tools?category=security", icon: Shield },
-  { id: "devUtilities", href: "/tools?category=dev-utilities", icon: Code },
-  { id: "generators", href: "/tools?category=generators", icon: Sparkles },
-] as const;
-
 export default function Header() {
+  const locale = useLocale(); // ✅ adentro del componente
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [toolsDropdownOpen, setToolsDropdownOpen] = useState(false);
+
   const t = useTranslations("common");
   const tFooter = useTranslations("footer");
 
+  const navItems = useMemo(
+    () =>
+      [
+        { name: "home", href: `/${locale}` },
+        { name: "tools", href: `/${locale}/tools` },
+        { name: "faq", href: `/${locale}/faq` }
+      ] as const,
+    [locale]
+  );
+
+  const categoryLinks = useMemo(
+    () =>
+      [
+        { id: "security", href: `/${locale}/tools?category=security`, icon: Shield },
+        { id: "devUtilities", href: `/${locale}/tools?category=dev-utilities`, icon: Code },
+        { id: "generators", href: `/${locale}/tools?category=generators`, icon: Sparkles }
+      ] as const,
+    [locale]
+  );
+
   const isActive = useMemo(() => {
-    return (href: string) => {
-      // Simple active matching
-      if (href === "/") return pathname === "/";
-      return pathname?.startsWith(href);
-    };
+    return (href: string) => pathname?.startsWith(href);
   }, [pathname]);
 
   return (
@@ -43,7 +49,7 @@ export default function Header() {
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5">
+          <Link href={`/${locale}`} className="flex items-center gap-2.5">
             <div className="w-9 h-9 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center">
               <Key className="w-5 h-5 text-white" />
             </div>
@@ -80,7 +86,7 @@ export default function Header() {
                     <div className="absolute top-full left-0 pt-2">
                       <div className="bg-white border border-slate-200 rounded-xl shadow-lg py-2 min-w-[220px]">
                         <Link
-                          href="/tools"
+                          href={`/${locale}/tools`}
                           className="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50"
                         >
                           {t("allTools")}
@@ -93,12 +99,9 @@ export default function Header() {
                             className="flex items-center gap-2 px-4 py-2 text-sm text-slate-700 hover:bg-slate-50"
                           >
                             <cat.icon className="w-4 h-4 text-slate-400" />
-                            {cat.id === "security" &&
-                              tFooter("categorySecurity")}
-                            {cat.id === "devUtilities" &&
-                              tFooter("categoryDevUtilities")}
-                            {cat.id === "generators" &&
-                              tFooter("categoryGenerators")}
+                            {cat.id === "security" && tFooter("categorySecurity")}
+                            {cat.id === "devUtilities" && tFooter("categoryDevUtilities")}
+                            {cat.id === "generators" && tFooter("categoryGenerators")}
                           </Link>
                         ))}
                       </div>
@@ -175,8 +178,7 @@ export default function Header() {
                   >
                     <cat.icon className="w-4 h-4 text-slate-400" />
                     {cat.id === "security" && tFooter("categorySecurity")}
-                    {cat.id === "devUtilities" &&
-                      tFooter("categoryDevUtilities")}
+                    {cat.id === "devUtilities" && tFooter("categoryDevUtilities")}
                     {cat.id === "generators" && tFooter("categoryGenerators")}
                   </Link>
                 ))}

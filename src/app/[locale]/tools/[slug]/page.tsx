@@ -3,9 +3,9 @@ import { notFound } from "next/navigation";
 import type { ComponentType } from "react";
 
 import ToolLayout from "@/components/tools/ToolLayout";
-import { getToolBySlug } from "@/lib/tools";
+import { getToolBySlug, getToolText, type Locale } from "@/lib/tools";
 
-// Tool components (ideal: que cada uno sea client component si usa hooks)
+// Tool components
 import ApiKeyGenerator from "@/components/tools/security/ApiKeyGenerator";
 import BcryptHashGenerator from "@/components/tools/security/BcryptHashGenerator";
 import PasswordGenerator from "@/components/tools/security/PasswordGenerator";
@@ -54,37 +54,46 @@ const toolComponents: Record<string, ComponentType> = {
   "markdown-preview": MarkdownPreview,
 };
 
-type Params = { slug: string };
+type Params = { locale: Locale; slug: string };
 
-// ✅ Next 15: params puede ser Promise
+// ✅ Next 15/16: params puede ser Promise
 export async function generateMetadata({
   params,
 }: {
   params: Promise<Params>;
 }): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const tool = getToolBySlug(slug);
 
   if (!tool) return { title: "Tool Not Found" };
 
+  const txt = getToolText(tool, locale);
+  const urlPath = `/${locale}/tools/${tool.slug}`;
+
   return {
-    title: `${tool.title} — KeyForge Tools`,
-    description: tool.description,
+    title: `${txt.title} — KeyForge Tools`,
+    description: txt.description,
     openGraph: {
-      title: `${tool.title} — KeyForge Tools`,
-      description: tool.description,
-      url: `/tools/${tool.slug}`,
+      title: `${txt.title} — KeyForge Tools`,
+      description: txt.description,
+      url: urlPath,
+    },
+    alternates: {
+      canonical: urlPath,
+      languages: {
+        es: `/es/tools/${tool.slug}`,
+        en: `/en/tools/${tool.slug}`,
+      },
     },
   };
 }
 
-// ✅ También soporta params Promise acá (por si Next te lo exige)
 export default async function ToolPage({
   params,
 }: {
   params: Promise<Params>;
 }) {
-  const { slug } = await params;
+  const { locale, slug } = await params;
 
   const tool = getToolBySlug(slug);
   const ToolComponent = tool ? toolComponents[slug] : undefined;
@@ -92,7 +101,7 @@ export default async function ToolPage({
   if (!tool || !ToolComponent) notFound();
 
   return (
-    <ToolLayout tool={tool}>
+    <ToolLayout tool={tool} locale={locale}>
       <ToolComponent />
     </ToolLayout>
   );

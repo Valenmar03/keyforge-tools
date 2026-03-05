@@ -1,11 +1,12 @@
-"use client"
+"use client";
 
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 const year = new Date().getFullYear();
 
 export default function Footer() {
+  const locale = useLocale(); // ✅ adentro del componente
   const tCommon = useTranslations("common");
   const tFooter = useTranslations("footer");
 
@@ -17,30 +18,31 @@ export default function Footer() {
             {tCommon("brand")}
             <span className="text-blue-600">{tCommon("brandSuffix")}</span>
           </div>
-          <p className="text-slate-500">
-            {tFooter("tagline")}
-          </p>
+          <p className="text-slate-500">{tFooter("tagline")}</p>
         </div>
 
         <div>
           <h3 className="text-xs font-semibold tracking-wide text-slate-400 uppercase mb-3">
             {tCommon("navigation")}
           </h3>
+
           <nav className="space-y-1">
             <Link
-              href="/"
+              href={`/${locale}`}
               className="block hover:text-slate-900 transition-colors"
             >
               {tCommon("home")}
             </Link>
+
             <Link
-              href="/tools"
+              href={`/${locale}/tools`}
               className="block hover:text-slate-900 transition-colors"
             >
               {tCommon("allTools")}
             </Link>
+
             <Link
-              href="/faq"
+              href={`/${locale}/faq`}
               className="block hover:text-slate-900 transition-colors"
             >
               {tCommon("faq")}
@@ -75,29 +77,34 @@ export default function Footer() {
       <div className="border-t border-slate-100">
         <div className="max-w-6xl mx-auto px-6 py-4 flex flex-col gap-2 md:flex-row md:items-center md:justify-between text-xs text-slate-500">
           <p>{tFooter("copyright", { year })}</p>
+
           <div className="flex flex-wrap items-center gap-4">
             <span className="text-slate-400">{tFooter("madeForDevelopers")}</span>
+
             <div className="flex items-center gap-3">
-              <span className="text-slate-400">
-                {tFooter("categoriesLabel")}
-              </span>
+              <span className="text-slate-400">{tFooter("categoriesLabel")}</span>
+
               <div className="flex flex-wrap gap-2">
                 <Link
-                  href="/tools?category=security"
+                  href={`/${locale}/tools?category=security`}
                   className="hover:text-slate-900 transition-colors"
                 >
                   {tFooter("categorySecurity")}
                 </Link>
+
                 <span className="text-slate-300">•</span>
+
                 <Link
-                  href="/tools?category=dev-utilities"
+                  href={`/${locale}/tools?category=dev-utilities`}
                   className="hover:text-slate-900 transition-colors"
                 >
                   {tFooter("categoryDevUtilities")}
                 </Link>
+
                 <span className="text-slate-300">•</span>
+
                 <Link
-                  href="/tools?category=generators"
+                  href={`/${locale}/tools?category=generators`}
                   className="hover:text-slate-900 transition-colors"
                 >
                   {tFooter("categoryGenerators")}
@@ -110,4 +117,3 @@ export default function Footer() {
     </footer>
   );
 }
-

@@ -12,11 +12,21 @@ import {
   List,
   ChevronRight,
 } from "lucide-react";
-import { tools, categories, type CategoryId } from "@/lib/tools";
+
+import {
+  tools,
+  categories,
+  type CategoryId,
+  type Locale,
+  normalizeLocale,
+  getToolText,
+  getCategoryText,
+} from "@/lib/tools";
+
 import ToolCard from "@/components/tools/ToolCard";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 const categoryIcons = {
   security: Shield,
@@ -28,12 +38,20 @@ type ActiveCategory = "all" | CategoryId;
 type ViewMode = "grid" | "list";
 
 export default function ToolsPage() {
+  // next-intl devuelve string, lo normalizamos
+  const nextIntlLocale = useLocale();
+  const locale = normalizeLocale(nextIntlLocale) as Locale;
+
+  const withLocale = (path: string) =>
+    `/${locale}${path.startsWith("/") ? path : `/${path}`}`;
+
   const searchParams = useSearchParams();
   const router = useRouter();
 
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState<ActiveCategory>("all");
   const [viewMode, setViewMode] = useState<ViewMode>("grid");
+
   const t = useTranslations("toolsPage");
 
   // Sync category from URL (?category=security) on load + when it changes
@@ -55,7 +73,9 @@ export default function ToolsPage() {
     if (cat === "all") params.delete("category");
     else params.set("category", cat);
 
-    router.push(`/tools${params.toString() ? `?${params.toString()}` : ""}`);
+    router.push(
+      withLocale(`/tools${params.toString() ? `?${params.toString()}` : ""}`)
+    );
   };
 
   const filteredTools = useMemo(() => {
@@ -67,16 +87,18 @@ export default function ToolsPage() {
 
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
-      result = result.filter(
-        (t) =>
-          t.title.toLowerCase().includes(q) ||
-          t.description.toLowerCase().includes(q) ||
-          t.keywords.some((k) => k.toLowerCase().includes(q))
-      );
+      result = result.filter((tool) => {
+        const txt = getToolText(tool, locale);
+        return (
+          txt.title.toLowerCase().includes(q) ||
+          txt.description.toLowerCase().includes(q) ||
+          txt.keywords.some((k) => k.toLowerCase().includes(q))
+        );
+      });
     }
 
     return result;
-  }, [searchQuery, activeCategory]);
+  }, [searchQuery, activeCategory, locale]);
 
   const toolsByCategory = useMemo(() => {
     if (activeCategory !== "all" || searchQuery.trim()) return null;
@@ -94,7 +116,7 @@ export default function ToolsPage() {
         <div className="max-w-6xl mx-auto px-6">
           {/* Breadcrumbs */}
           <nav className="flex items-center gap-2 text-sm text-slate-500 mb-6">
-            <Link href="/" className="hover:text-slate-900">
+            <Link href={withLocale("/")} className="hover:text-slate-900">
               {t("breadcrumbsHome")}
             </Link>
             <ChevronRight className="w-4 h-4" />
@@ -146,6 +168,7 @@ export default function ToolsPage() {
               {categories.map((cat) => {
                 const Icon = categoryIcons[cat.id];
                 const count = tools.filter((t) => t.category === cat.id).length;
+                const catText = getCategoryText(cat, locale);
 
                 return (
                   <button
@@ -159,7 +182,7 @@ export default function ToolsPage() {
                     )}
                   >
                     <Icon className="w-4 h-4" />
-                    {cat.name} ({count})
+                    {catText.name} ({count})
                   </button>
                 );
               })}
@@ -201,15 +224,14 @@ export default function ToolsPage() {
               {t("resultsFound", {
                 count: filteredTools.length,
                 suffix:
-                  filteredTools.length !== 1
-                    ? t("resultsSuffixPlural")
-                    : "",
+                  filteredTools.length !== 1 ? t("resultsSuffixPlural") : "",
                 categoryPart:
                   activeCategory !== "all"
                     ? t("resultsInCategory", {
-                        categoryName: categories.find(
-                          (c) => c.id === activeCategory
-                        )!.name,
+                        categoryName: getCategoryText(
+                          categories.find((c) => c.id === activeCategory)!,
+                          locale
+                        ).name,
                       })
                     : "",
               })}
@@ -221,6 +243,8 @@ export default function ToolsPage() {
             <div className="space-y-12">
               {toolsByCategory.map((cat) => {
                 const Icon = categoryIcons[cat.id];
+                const catText = getCategoryText(cat, locale);
+
                 return (
                   <div key={cat.id}>
                     <div className="flex items-center gap-3 mb-6">
@@ -243,10 +267,10 @@ export default function ToolsPage() {
                       </div>
                       <div>
                         <h2 className="text-xl font-bold text-slate-900">
-                          {cat.name}
+                          {catText.name}
                         </h2>
                         <p className="text-sm text-slate-500">
-                          {cat.description}
+                          {catText.description}
                         </p>
                       </div>
                     </div>
@@ -279,11 +303,7 @@ export default function ToolsPage() {
               )}
             >
               {filteredTools.map((tool) => (
-                <ToolCard
-                  key={tool.slug}
-                  tool={tool}
-                  compact={viewMode === "list"}
-                />
+                <ToolCard key={tool.slug} tool={tool} compact={viewMode === "list"} />
               ))}
             </div>
           )}
@@ -297,9 +317,7 @@ export default function ToolsPage() {
               <h3 className="text-lg font-medium text-slate-900 mb-2">
                 {t("noResultsTitle")}
               </h3>
-              <p className="text-slate-500 mb-4">
-                {t("noResultsBody")}
-              </p>
+              <p className="text-slate-500 mb-4">{t("noResultsBody")}</p>
               <Button
                 variant="outline"
                 onClick={() => {
