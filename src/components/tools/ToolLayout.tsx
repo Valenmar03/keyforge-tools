@@ -3,7 +3,13 @@ import Link from "next/link";
 import { ChevronRight, Shield, Code, Sparkles, ArrowRight } from "lucide-react";
 import { categories, getRelatedTools, type Tool } from "@/lib/tools";
 import ReactMarkdown from "react-markdown";
-import { Accordion,  AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "../ui/accordion";
+import { useTranslations } from "next-intl";
 
 const categoryIcons = {
   security: Shield,
@@ -33,6 +39,7 @@ export default function ToolLayout({ tool, children }: Props) {
   const relatedTools = getRelatedTools(tool);
   const category = categories.find((c) => c.id === tool.category);
   const CategoryIcon = categoryIcons[tool.category];
+  const t = useTranslations("toolLayout");
 
   // JSON-LD FAQ Schema
   const faqSchema =
@@ -59,13 +66,13 @@ export default function ToolLayout({ tool, children }: Props) {
       {
         "@type": "ListItem",
         position: 1,
-        name: "Home",
+        name: t("breadcrumbsHome"),
         item: absoluteUrl("/"),
       },
       {
         "@type": "ListItem",
         position: 2,
-        name: "Tools",
+        name: t("breadcrumbsTools"),
         item: absoluteUrl("/tools"),
       },
       {
@@ -104,11 +111,11 @@ export default function ToolLayout({ tool, children }: Props) {
           {/* Breadcrumbs */}
           <nav className="flex flex-wrap items-center gap-2 text-sm text-slate-500 mb-6">
             <Link href="/" className="hover:text-slate-900">
-              Home
+              {t("breadcrumbsHome")}
             </Link>
             <ChevronRight className="w-4 h-4" />
             <Link href="/tools" className="hover:text-slate-900">
-              Tools
+              {t("breadcrumbsTools")}
             </Link>
             <ChevronRight className="w-4 h-4" />
             <Link
@@ -229,11 +236,9 @@ export default function ToolLayout({ tool, children }: Props) {
             <div className="flex items-end justify-between gap-4 mb-6">
               <div>
                 <h2 className="text-2xl font-bold text-slate-900">
-                  Frequently Asked Questions
+                  {t("faqTitle")}
                 </h2>
-                <p className="text-slate-600 mt-1">
-                  Quick answers about usage, privacy, and best practices.
-                </p>
+                <p className="text-slate-600 mt-1">{t("faqSubtitle")}</p>
               </div>
 
               {/* opcional: link a FAQ general */}
@@ -241,7 +246,7 @@ export default function ToolLayout({ tool, children }: Props) {
                 href="/faq"
                 className="text-sm font-medium text-blue-600 hover:text-blue-700"
               >
-                View all FAQs
+                {t("faqViewAll")}
               </Link>
             </div>
 
@@ -280,8 +285,10 @@ export default function ToolLayout({ tool, children }: Props) {
               <div className="mt-6 flex items-start gap-3 rounded-xl border border-slate-200 bg-slate-50 p-4">
                 <Shield className="w-5 h-5 text-green-600 shrink-0 mt-0.5" />
                 <p className="text-sm text-slate-600">
-                  <span className="font-semibold text-slate-800">Privacy:</span>{" "}
-                  Everything runs locally in your browser. No data is sent to a server.
+                  <span className="font-semibold text-slate-800">
+                    {t("privacyBadgeTitle")}
+                  </span>{" "}
+                  {t("privacyBadgeBody")}
                 </p>
               </div>
             </div>
@@ -293,12 +300,14 @@ export default function ToolLayout({ tool, children }: Props) {
         <section className="py-12 bg-slate-50 border-t border-slate-100">
           <div className="max-w-4xl mx-auto px-6">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold text-slate-900">Related Tools</h2>
+              <h2 className="text-2xl font-bold text-slate-900">
+                {t("relatedToolsTitle")}
+              </h2>
               <Link
                 href="/tools"
                 className="text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1"
               >
-                View All <ArrowRight className="w-4 h-4" />
+                {t("relatedToolsViewAll")} <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
 
@@ -338,8 +347,10 @@ export default function ToolLayout({ tool, children }: Props) {
           <div className="flex items-center gap-3 text-sm text-slate-500">
             <Shield className="w-5 h-5 text-green-500" />
             <span>
-              <strong className="text-slate-700">Privacy First:</strong> This tool
-              runs entirely in your browser. No data is sent to any server.
+              <strong className="text-slate-700">
+                {t("privacyNoteTitle")}
+              </strong>{" "}
+              {t("privacyNoteBody")}
             </span>
           </div>
         </div>

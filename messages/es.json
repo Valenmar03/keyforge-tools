@@ -1,0 +1,101 @@
+{
+  "common": {
+    "brand": "KeyForge",
+    "brandSuffix": "Tools",
+    "navigation": "Navegación",
+    "home": "Inicio",
+    "tools": "Herramientas",
+    "allTools": "Todas las herramientas",
+    "faq": "FAQ",
+    "categories": "Categorías"
+  },
+  "header": {
+    "language": "Idioma",
+    "languageShort": "ES"
+  },
+  "footer": {
+    "tagline": "Una colección seleccionada de utilidades para desarrolladores de seguridad, procesamiento de texto y flujos de trabajo diarios, todo en un solo lugar.",
+    "navigation": "Navegación",
+    "resources": "Recursos",
+    "resourcesBody": "¿Encontraste un bug o tienes una idea para una nueva herramienta? <line>Contacta por tu canal preferido o abre un issue en el repositorio del proyecto.</line>",
+    "copyright": "© {year} KeyForge Tools. Todos los derechos reservados.",
+    "madeForDevelopers": "Hecho para desarrolladores.",
+    "categoriesLabel": "Categorías:",
+    "categorySecurity": "Seguridad",
+    "categoryDevUtilities": "Utilidades Dev",
+    "categoryGenerators": "Generadores"
+  },
+  "home": {
+    "privacyBadge": "100% en el navegador • Ningún dato sale de tu dispositivo",
+    "headlinePrefix": "Herramientas rápidas y privadas para",
+    "headlineHighlight": "Desarrolladores",
+    "subheadline": "Generadores de contraseñas seguras, formateadores de JSON, codificadores y más de 20 utilidades para desarrolladores. Todo se ejecuta localmente en tu navegador: tus datos nunca salen de tu dispositivo.",
+    "searchPlaceholder": "Busca herramientas... (ej., password, json, base64)",
+    "browseAllTools": "Ver todas las herramientas",
+    "viewCategories": "Ver categorías",
+    "popularToolsTitle": "Herramientas populares",
+    "popularToolsSubtitle": "Utilidades para desarrolladores más usadas",
+    "toolCategoriesTitle": "Categorías de herramientas",
+    "toolCategoriesSubtitle": "Organizadas por caso de uso",
+    "privacyFirstTitle": "Privacidad primero",
+    "privacyFirstBody": "Todas las herramientas se ejecutan completamente en tu navegador usando JavaScript. Ningún dato se envía a ningún servidor. Sin analíticas, sin tracking, sin cookies. Tus contraseñas, tokens y datos sensibles se quedan en tu dispositivo.",
+    "privacyBadges": {
+      "noServerCalls": "Sin llamadas al servidor",
+      "noAnalytics": "Sin analíticas",
+      "noCookies": "Sin cookies",
+      "openAlgorithms": "Algoritmos abiertos"
+    },
+    "whyTitle": "¿Por qué KeyForge Tools?",
+    "why": {
+      "instantResultsTitle": "Resultados instantáneos",
+      "instantResultsDesc": "Sin cargas ni esperas. Los resultados aparecen mientras escribes.",
+      "cryptoSecureTitle": "Criptográficamente seguro",
+      "cryptoSecureDesc": "Usa crypto.getRandomValues() para verdadera aleatoriedad.",
+      "noTrackingTitle": "Sin tracking",
+      "noTrackingDesc": "Cero analíticas ni scripts de terceros.",
+      "devFocusedTitle": "Pensado para devs",
+      "devFocusedDesc": "Hecho por desarrolladores, para desarrolladores."
+    },
+    "ctaTitle": "¿Listo para empezar?",
+    "ctaSubtitle": "Explora toda nuestra colección de herramientas para desarrolladores.",
+    "ctaButton": "Explorar todas las herramientas"
+  },
+  "toolsPage": {
+    "breadcrumbsHome": "Inicio",
+    "breadcrumbsCurrent": "Herramientas",
+    "title": "Herramientas para desarrolladores",
+    "description": "{count} herramientas del lado del cliente para seguridad, codificación, generación y más. Todas se ejecutan localmente en tu navegador sin transmitir datos.",
+    "searchPlaceholder": "Busca herramientas por nombre o palabra clave...",
+    "allToolsTab": "Todas las herramientas ({count})",
+    "resultsFound": "Se encontraron {count} herramienta{suffix}{categoryPart}",
+    "resultsSuffixPlural": "s",
+    "resultsInCategory": " en {categoryName}",
+    "noResultsTitle": "No se encontraron herramientas",
+    "noResultsBody": "Prueba ajustando tu búsqueda o criterios de filtrado",
+    "clearFilters": "Limpiar filtros"
+  },
+  "faqPage": {
+    "breadcrumbsHome": "Inicio",
+    "breadcrumbsCurrent": "FAQ",
+    "title": "Preguntas frecuentes",
+    "subtitle": "Conoce nuestras prácticas de privacidad, cómo funcionan las herramientas y por qué puedes confiar en ellas.",
+    "privacyTitle": "Privacidad primero, siempre",
+    "privacyBody": "Cada herramienta de KeyForge Tools procesa tus datos localmente en tu navegador. Sin llamadas al servidor, sin analíticas, sin tracking. Tus datos se quedan en tu dispositivo.",
+    "ctaTitle": "¿Listo para usar nuestras herramientas?",
+    "ctaButton": "Explorar todas las herramientas"
+  },
+  "toolLayout": {
+    "breadcrumbsHome": "Inicio",
+    "breadcrumbsTools": "Herramientas",
+    "faqTitle": "Preguntas frecuentes",
+    "faqSubtitle": "Respuestas rápidas sobre uso, privacidad y buenas prácticas.",
+    "faqViewAll": "Ver todas las FAQs",
+    "privacyBadgeTitle": "Privacidad:",
+    "privacyBadgeBody": "Todo se ejecuta localmente en tu navegador. No se envían datos a ningún servidor.",
+    "relatedToolsTitle": "Herramientas relacionadas",
+    "relatedToolsViewAll": "Ver todas",
+    "privacyNoteTitle": "Privacidad primero:",
+    "privacyNoteBody": "Esta herramienta se ejecuta completamente en tu navegador. No se envían datos a ningún servidor."
+  }
+}
+

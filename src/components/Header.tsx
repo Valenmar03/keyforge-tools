@@ -3,37 +3,32 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useMemo, useState } from "react";
-import {
-  Shield,
-  Code,
-  Sparkles,
-  Key,
-  ChevronDown,
-  Globe,
-  Menu,
-  X,
-} from "lucide-react";
+import { Shield, Code, Sparkles, Key, ChevronDown, Menu, X } from "lucide-react";
+import { useTranslations } from "next-intl";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 function cn(...classes: Array<string | false | null | undefined>) {
   return classes.filter(Boolean).join(" ");
 }
 
 const navItems = [
-  { name: "Home", href: "/" },
-  { name: "Tools", href: "/tools" },
-  { name: "FAQ", href: "/faq" },
-];
+  { name: "home", href: "/" },
+  { name: "tools", href: "/tools" },
+  { name: "faq", href: "/faq" },
+] as const;
 
 const categoryLinks = [
-  { name: "Security", href: "/tools?category=security", icon: Shield },
-  { name: "Dev Utilities", href: "/tools?category=dev-utilities", icon: Code },
-  { name: "Generators", href: "/tools?category=generators", icon: Sparkles },
-];
+  { id: "security", href: "/tools?category=security", icon: Shield },
+  { id: "devUtilities", href: "/tools?category=dev-utilities", icon: Code },
+  { id: "generators", href: "/tools?category=generators", icon: Sparkles },
+] as const;
 
 export default function Header() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [toolsDropdownOpen, setToolsDropdownOpen] = useState(false);
+  const t = useTranslations("common");
+  const tFooter = useTranslations("footer");
 
   const isActive = useMemo(() => {
     return (href: string) => {
@@ -53,14 +48,15 @@ export default function Header() {
               <Key className="w-5 h-5 text-white" />
             </div>
             <span className="text-xl font-bold text-slate-900">
-              KeyForge<span className="text-blue-600">Tools</span>
+              {t("brand")}
+              <span className="text-blue-600">{t("brandSuffix")}</span>
             </span>
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
             {navItems.map((item) =>
-              item.name === "Tools" ? (
+              item.name === "tools" ? (
                 <div
                   key={item.name}
                   className="relative"
@@ -76,7 +72,7 @@ export default function Header() {
                         : "text-slate-600 hover:text-slate-900"
                     )}
                   >
-                    {item.name}
+                    {t(item.name)}
                     <ChevronDown className="w-4 h-4" />
                   </Link>
 
@@ -87,17 +83,22 @@ export default function Header() {
                           href="/tools"
                           className="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50"
                         >
-                          All Tools
+                          {t("allTools")}
                         </Link>
                         <div className="border-t border-slate-100 my-1" />
                         {categoryLinks.map((cat) => (
                           <Link
-                            key={cat.name}
+                            key={cat.id}
                             href={cat.href}
                             className="flex items-center gap-2 px-4 py-2 text-sm text-slate-700 hover:bg-slate-50"
                           >
                             <cat.icon className="w-4 h-4 text-slate-400" />
-                            {cat.name}
+                            {cat.id === "security" &&
+                              tFooter("categorySecurity")}
+                            {cat.id === "devUtilities" &&
+                              tFooter("categoryDevUtilities")}
+                            {cat.id === "generators" &&
+                              tFooter("categoryGenerators")}
                           </Link>
                         ))}
                       </div>
@@ -115,21 +116,15 @@ export default function Header() {
                       : "text-slate-600 hover:text-slate-900"
                   )}
                 >
-                  {item.name}
+                  {t(item.name)}
                 </Link>
               )
             )}
           </nav>
 
-          {/* Language Toggle (Placeholder) */}
+          {/* Language Switcher */}
           <div className="hidden md:flex items-center gap-3">
-            <button
-              type="button"
-              className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors"
-            >
-              <Globe className="w-4 h-4" />
-              EN
-            </button>
+            <LanguageSwitcher />
           </div>
 
           {/* Mobile Menu Button */}
@@ -163,23 +158,26 @@ export default function Header() {
                       : "text-slate-600 hover:bg-slate-50"
                   )}
                 >
-                  {item.name}
+                  {t(item.name)}
                 </Link>
               ))}
 
               <div className="border-t border-slate-100 my-2 pt-2">
                 <div className="px-3 py-1 text-xs font-medium text-slate-400 uppercase">
-                  Categories
+                  {t("categories")}
                 </div>
                 {categoryLinks.map((cat) => (
                   <Link
-                    key={cat.name}
+                    key={cat.id}
                     href={cat.href}
                     onClick={() => setMobileMenuOpen(false)}
                     className="flex items-center gap-2 px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 rounded-lg"
                   >
                     <cat.icon className="w-4 h-4 text-slate-400" />
-                    {cat.name}
+                    {cat.id === "security" && tFooter("categorySecurity")}
+                    {cat.id === "devUtilities" &&
+                      tFooter("categoryDevUtilities")}
+                    {cat.id === "generators" && tFooter("categoryGenerators")}
                   </Link>
                 ))}
               </div>

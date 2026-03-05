@@ -9,8 +9,10 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { faqs } from "@/lib/faq";
+import { useTranslations } from "next-intl";
 
 export default function FaqPage() {
+  const t = useTranslations("faqPage");
   // JSON-LD FAQ schema (SEO)
   const faqSchema = {
     "@context": "https://schema.org",
@@ -39,18 +41,18 @@ export default function FaqPage() {
           {/* Breadcrumbs */}
           <nav className="flex items-center gap-2 text-sm text-slate-500 mb-6">
             <Link href="/" className="hover:text-slate-900">
-              Home
+              {t("breadcrumbsHome")}
             </Link>
             <ChevronRight className="w-4 h-4" />
-            <span className="text-slate-900 font-medium">FAQ</span>
+            <span className="text-slate-900 font-medium">
+              {t("breadcrumbsCurrent")}
+            </span>
           </nav>
 
           <h1 className="text-4xl font-bold text-slate-900 mb-4">
-            Frequently Asked Questions
+            {t("title")}
           </h1>
-          <p className="text-lg text-slate-600">
-            Learn about our privacy practices, how the tools work, and why you can trust them.
-          </p>
+          <p className="text-lg text-slate-600">{t("subtitle")}</p>
         </div>
       </section>
 
@@ -90,10 +92,9 @@ export default function FaqPage() {
         <div className="max-w-3xl mx-auto px-6">
           <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-8 text-white text-center">
             <Shield className="w-12 h-12 mx-auto mb-4 text-blue-400" />
-            <h2 className="text-2xl font-bold mb-3">Privacy First, Always</h2>
+            <h2 className="text-2xl font-bold mb-3">{t("privacyTitle")}</h2>
             <p className="text-slate-300 max-w-xl mx-auto">
-              Every tool on KeyForge Tools processes your data locally in your browser.
-              No server calls, no analytics, no tracking. Your data stays on your device.
+              {t("privacyBody")}
             </p>
           </div>
         </div>
@@ -103,13 +104,13 @@ export default function FaqPage() {
       <section className="py-12">
         <div className="max-w-3xl mx-auto px-6 text-center">
           <h2 className="text-2xl font-bold text-slate-900 mb-4">
-            Ready to use our tools?
+            {t("ctaTitle")}
           </h2>
           <Link
             href="/tools"
             className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition-colors"
           >
-            Explore All Tools
+            {t("ctaButton")}
             <ChevronRight className="w-4 h-4" />
           </Link>
         </div>

@@ -13,9 +13,10 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { tools, categories, type CategoryId } from "@/lib/tools";
-import ToolCard from "@/components/tools/ToolCard"; // ajustá la ruta según tu proyecto
-import { Button } from "@/components/ui/button"; // si no usás shadcn, reemplazalo por <button>
+import ToolCard from "@/components/tools/ToolCard";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 const categoryIcons = {
   security: Shield,
@@ -33,6 +34,7 @@ export default function ToolsPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState<ActiveCategory>("all");
   const [viewMode, setViewMode] = useState<ViewMode>("grid");
+  const t = useTranslations("toolsPage");
 
   // Sync category from URL (?category=security) on load + when it changes
   useEffect(() => {
@@ -93,19 +95,19 @@ export default function ToolsPage() {
           {/* Breadcrumbs */}
           <nav className="flex items-center gap-2 text-sm text-slate-500 mb-6">
             <Link href="/" className="hover:text-slate-900">
-              Home
+              {t("breadcrumbsHome")}
             </Link>
             <ChevronRight className="w-4 h-4" />
-            <span className="text-slate-900 font-medium">Tools</span>
+            <span className="text-slate-900 font-medium">
+              {t("breadcrumbsCurrent")}
+            </span>
           </nav>
 
           <h1 className="text-4xl font-bold text-slate-900 mb-4">
-            Developer Tools
+            {t("title")}
           </h1>
           <p className="text-lg text-slate-600 mb-8 max-w-2xl">
-            {tools.length} client-side tools for security, encoding, generation,
-            and more. All tools run locally in your browser with no data
-            transmission.
+            {t("description", { count: tools.length })}
           </p>
 
           {/* Search */}
@@ -113,7 +115,7 @@ export default function ToolsPage() {
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
             <input
               type="text"
-              placeholder="Search tools by name or keyword..."
+              placeholder={t("searchPlaceholder")}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-12 pr-4 py-3.5 bg-white border border-slate-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
@@ -138,7 +140,7 @@ export default function ToolsPage() {
                     : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                 )}
               >
-                All Tools ({tools.length})
+                {t("allToolsTab", { count: tools.length })}
               </button>
 
               {categories.map((cat) => {
@@ -196,10 +198,21 @@ export default function ToolsPage() {
           {/* Results Count */}
           {searchQuery && (
             <p className="text-sm text-slate-500 mb-6">
-              Found {filteredTools.length} tool
-              {filteredTools.length !== 1 ? "s" : ""}
-              {activeCategory !== "all" &&
-                ` in ${categories.find((c) => c.id === activeCategory)?.name}`}
+              {t("resultsFound", {
+                count: filteredTools.length,
+                suffix:
+                  filteredTools.length !== 1
+                    ? t("resultsSuffixPlural")
+                    : "",
+                categoryPart:
+                  activeCategory !== "all"
+                    ? t("resultsInCategory", {
+                        categoryName: categories.find(
+                          (c) => c.id === activeCategory
+                        )!.name,
+                      })
+                    : "",
+              })}
             </p>
           )}
 
@@ -282,10 +295,10 @@ export default function ToolsPage() {
                 <Search className="w-7 h-7 text-slate-400" />
               </div>
               <h3 className="text-lg font-medium text-slate-900 mb-2">
-                No tools found
+                {t("noResultsTitle")}
               </h3>
               <p className="text-slate-500 mb-4">
-                Try adjusting your search or filter criteria
+                {t("noResultsBody")}
               </p>
               <Button
                 variant="outline"
@@ -294,7 +307,7 @@ export default function ToolsPage() {
                   setCategory("all");
                 }}
               >
-                Clear Filters
+                {t("clearFilters")}
               </Button>
             </div>
           )}

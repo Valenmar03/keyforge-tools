@@ -1,0 +1,101 @@
+{
+  "common": {
+    "brand": "KeyForge",
+    "brandSuffix": "Tools",
+    "navigation": "Navigation",
+    "home": "Home",
+    "tools": "Tools",
+    "allTools": "All tools",
+    "faq": "FAQ",
+    "categories": "Categories"
+  },
+  "header": {
+    "language": "Language",
+    "languageShort": "EN"
+  },
+  "footer": {
+    "tagline": "A curated collection of developer utilities for security, text processing, and everyday workflows — all in one place.",
+    "navigation": "Navigation",
+    "resources": "Resources",
+    "resourcesBody": "Found a bug or have an idea for a new tool? <line>Reach out via your preferred channel or open an issue in the project repository.</line>",
+    "copyright": "© {year} KeyForge Tools. All rights reserved.",
+    "madeForDevelopers": "Made for developers.",
+    "categoriesLabel": "Categories:",
+    "categorySecurity": "Security",
+    "categoryDevUtilities": "Dev Utilities",
+    "categoryGenerators": "Generators"
+  },
+  "home": {
+    "privacyBadge": "100% Client-Side • No Data Leaves Your Browser",
+    "headlinePrefix": "Fast, Private Tools for",
+    "headlineHighlight": "Developers",
+    "subheadline": "Secure password generators, JSON formatters, encoders, and 20+ developer utilities. Everything runs locally in your browser—your data never leaves your device.",
+    "searchPlaceholder": "Search tools... (e.g., password, json, base64)",
+    "browseAllTools": "Browse All Tools",
+    "viewCategories": "View Categories",
+    "popularToolsTitle": "Popular Tools",
+    "popularToolsSubtitle": "Most used developer utilities",
+    "toolCategoriesTitle": "Tool Categories",
+    "toolCategoriesSubtitle": "Organized by use case",
+    "privacyFirstTitle": "Privacy First",
+    "privacyFirstBody": "All tools run entirely in your browser using JavaScript. No data is ever sent to any server. No analytics, no tracking, no cookies. Your passwords, tokens, and sensitive data stay on your device.",
+    "privacyBadges": {
+      "noServerCalls": "No Server Calls",
+      "noAnalytics": "No Analytics",
+      "noCookies": "No Cookies",
+      "openAlgorithms": "Open Algorithms"
+    },
+    "whyTitle": "Why KeyForge Tools?",
+    "why": {
+      "instantResultsTitle": "Instant Results",
+      "instantResultsDesc": "No loading, no waiting. Results appear as you type.",
+      "cryptoSecureTitle": "Cryptographically Secure",
+      "cryptoSecureDesc": "Uses crypto.getRandomValues() for true randomness.",
+      "noTrackingTitle": "No Tracking",
+      "noTrackingDesc": "Zero analytics or third-party scripts.",
+      "devFocusedTitle": "Developer Focused",
+      "devFocusedDesc": "Built by developers, for developers."
+    },
+    "ctaTitle": "Ready to Get Started?",
+    "ctaSubtitle": "Explore our full collection of developer tools.",
+    "ctaButton": "Explore All Tools"
+  },
+  "toolsPage": {
+    "breadcrumbsHome": "Home",
+    "breadcrumbsCurrent": "Tools",
+    "title": "Developer Tools",
+    "description": "{count} client-side tools for security, encoding, generation, and more. All tools run locally in your browser with no data transmission.",
+    "searchPlaceholder": "Search tools by name or keyword...",
+    "allToolsTab": "All Tools ({count})",
+    "resultsFound": "Found {count} tool{suffix}{categoryPart}",
+    "resultsSuffixPlural": "s",
+    "resultsInCategory": " in {categoryName}",
+    "noResultsTitle": "No tools found",
+    "noResultsBody": "Try adjusting your search or filter criteria",
+    "clearFilters": "Clear Filters"
+  },
+  "faqPage": {
+    "breadcrumbsHome": "Home",
+    "breadcrumbsCurrent": "FAQ",
+    "title": "Frequently Asked Questions",
+    "subtitle": "Learn about our privacy practices, how the tools work, and why you can trust them.",
+    "privacyTitle": "Privacy First, Always",
+    "privacyBody": "Every tool on KeyForge Tools processes your data locally in your browser. No server calls, no analytics, no tracking. Your data stays on your device.",
+    "ctaTitle": "Ready to use our tools?",
+    "ctaButton": "Explore All Tools"
+  },
+  "toolLayout": {
+    "breadcrumbsHome": "Home",
+    "breadcrumbsTools": "Tools",
+    "faqTitle": "Frequently Asked Questions",
+    "faqSubtitle": "Quick answers about usage, privacy, and best practices.",
+    "faqViewAll": "View all FAQs",
+    "privacyBadgeTitle": "Privacy:",
+    "privacyBadgeBody": "Everything runs locally in your browser. No data is sent to a server.",
+    "relatedToolsTitle": "Related Tools",
+    "relatedToolsViewAll": "View All",
+    "privacyNoteTitle": "Privacy First:",
+    "privacyNoteBody": "This tool runs entirely in your browser. No data is sent to any server."
+  }
+}
+
