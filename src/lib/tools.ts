@@ -161,6 +161,12 @@ export const toolDefs: ToolDef[] = [
     popularityScore: 86,
   },
   {
+    slug: "markdown-preview",
+    category: "dev-utilities",
+    relatedSlugs: ["lorem-ipsum-generator", "json-formatter", "text-case-converter"],
+    popularityScore: 71,
+  },
+  {
     slug: "html-encoder-decoder",
     category: "dev-utilities",
     relatedSlugs: ["url-encoder-decoder", "base64-encoder-decoder", "json-formatter"],
@@ -221,12 +227,6 @@ export const toolDefs: ToolDef[] = [
     category: "generators",
     relatedSlugs: ["text-case-converter", "regex-tester", "json-formatter"],
     popularityScore: 75,
-  },
-  {
-    slug: "markdown-preview",
-    category: "generators",
-    relatedSlugs: ["lorem-ipsum-generator", "json-formatter", "text-case-converter"],
-    popularityScore: 71,
   },
   {
     slug: "qr-code-generator",
