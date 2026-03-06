@@ -18,6 +18,7 @@ import { useLocale, useTranslations } from "next-intl";
 
 import {
   getCategories,
+  getPopularTools,
   getTools,
   searchTools,
   type Locale,
@@ -50,7 +51,7 @@ export default function Home() {
   const categories = useMemo(() => getCategories(tTools), [tTools]);
   const tools = useMemo(() => getTools(tTools), [tTools]);
 
-  const popularTools = tools.slice(0, 6);
+  const popularTools = useMemo(() => getPopularTools(tTools, 6), [tTools]);
 
   const filteredTools = useMemo(() => {
     if (!searchQuery.trim()) return [];
@@ -186,8 +187,7 @@ export default function Home() {
           <div className="grid md:grid-cols-3 gap-6">
             {categories.map((cat) => {
               const Icon = categoryIcons[cat.id];
-              const toolCount = tools.filter((t) => t.category === cat.id)
-                .length;
+              const toolCount = tools.filter((tool) => tool.category === cat.id).length;
 
               return (
                 <Link
@@ -207,9 +207,7 @@ export default function Home() {
                   <p className="text-slate-600 mb-4">{cat.description}</p>
 
                   <div className="flex items-center text-sm text-slate-500">
-                    <span>
-                      {`${toolCount} ${t("tools")}`}
-                    </span>
+                    <span>{`${toolCount} ${t("tools")}`}</span>
                     <ArrowRight className="w-4 h-4 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
                   </div>
                 </Link>
