@@ -82,10 +82,10 @@ export async function generateMetadata({
   const urlPath = `/${locale}/tools/${slug}`;
 
   return {
-    title: `${txt.title} — Dev Toolkit`,
+    title: `${txt.title} — Dev ToolStack`,
     description: txt.description,
     openGraph: {
-      title: `${txt.title} — Dev Toolkit`,
+      title: `${txt.title} — Dev ToolStack`,
       description: txt.description,
       url: urlPath,
     },

@@ -1,6 +1,6 @@
 {
   "common": {
-    "brand": "Dev Toolkit",
+    "brand": "Dev ToolStack",
     "brandSuffix": "Tools",
     "navigation": "Navegación",
     "home": "Inicio",
@@ -18,7 +18,7 @@
     "navigation": "Navegación",
     "resources": "Recursos",
     "resourcesBody": "¿Encontraste un bug o tienes una idea para una nueva herramienta? <line>Contacta por tu canal preferido o abre un issue en el repositorio del proyecto.</line>",
-    "copyright": "© {year} Dev Toolkit. Todos los derechos reservados.",
+    "copyright": "© {year} Dev ToolStack. Todos los derechos reservados.",
     "madeForDevelopers": "Hecho para desarrolladores.",
     "categoriesLabel": "Categorías:",
     "categorySecurity": "Seguridad",
@@ -46,7 +46,7 @@
       "noCookies": "Sin cookies",
       "openAlgorithms": "Algoritmos abiertos"
     },
-    "whyTitle": "¿Por qué Dev Toolkit?",
+    "whyTitle": "¿Por qué DevToolStack?",
     "why": {
       "instantResultsTitle": "Resultados instantáneos",
       "instantResultsDesc": "Sin cargas ni esperas. Los resultados aparecen mientras escribes.",
@@ -81,7 +81,7 @@
     "title": "Preguntas frecuentes",
     "subtitle": "Conoce nuestras prácticas de privacidad, cómo funcionan las herramientas y por qué puedes confiar en ellas.",
     "privacyTitle": "Privacidad primero, siempre",
-    "privacyBody": "Cada herramienta de Dev Toolkit procesa tus datos localmente en tu navegador. Sin llamadas al servidor, sin analíticas, sin tracking. Tus datos se quedan en tu dispositivo.",
+    "privacyBody": "Cada herramienta de Dev ToolStack procesa tus datos localmente en tu navegador. Sin llamadas al servidor, sin analíticas, sin tracking. Tus datos se quedan en tu dispositivo.",
     "ctaTitle": "¿Listo para usar nuestras herramientas?",
     "ctaButton": "Explorar todas las herramientas",
     "faqItems": {

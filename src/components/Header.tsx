@@ -67,7 +67,7 @@ export default function Header() {
             </div>
             <span className="text-xl font-bold text-slate-900">
               Dev
-              <span className="text-blue-600"> Toolkit</span>
+              <span className="text-blue-600">ToolStack</span>
             </span>
           </Link>
 
