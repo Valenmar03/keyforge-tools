@@ -1,6 +1,6 @@
 {
   "common": {
-    "brand": "KeyForge",
+    "brand": "Dev Toolkit",
     "brandSuffix": "Tools",
     "navigation": "Navigation",
     "home": "Home",
@@ -18,7 +18,7 @@
     "navigation": "Navigation",
     "resources": "Resources",
     "resourcesBody": "Found a bug or have an idea for a new tool? <line>Reach out via your preferred channel or open an issue in the project repository.</line>",
-    "copyright": "© {year} KeyForge Tools. All rights reserved.",
+    "copyright": "© {year} Dev Toolkit. All rights reserved.",
     "madeForDevelopers": "Made for developers.",
     "categoriesLabel": "Categories:",
     "categorySecurity": "Security",
@@ -46,7 +46,7 @@
       "noCookies": "No Cookies",
       "openAlgorithms": "Open Algorithms"
     },
-    "whyTitle": "Why KeyForge Tools?",
+    "whyTitle": "Why Dev Toolkit?",
     "why": {
       "instantResultsTitle": "Instant Results",
       "instantResultsDesc": "No loading, no waiting. Results appear as you type.",
@@ -81,7 +81,7 @@
     "title": "Frequently Asked Questions",
     "subtitle": "Learn about our privacy practices, how the tools work, and why you can trust them.",
     "privacyTitle": "Privacy First, Always",
-    "privacyBody": "Every tool on KeyForge Tools processes your data locally in your browser. No server calls, no analytics, no tracking. Your data stays on your device.",
+    "privacyBody": "Every tool on Dev Toolkit processes your data locally in your browser. No server calls, no analytics, no tracking. Your data stays on your device.",
     "ctaTitle": "Ready to use our tools?",
     "ctaButton": "Explore All Tools"
   },

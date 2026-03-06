@@ -82,10 +82,10 @@ export async function generateMetadata({
   const urlPath = `/${locale}/tools/${slug}`;
 
   return {
-    title: `${txt.title} — KeyForge Tools`,
+    title: `${txt.title} — Dev Toolkit`,
     description: txt.description,
     openGraph: {
-      title: `${txt.title} — KeyForge Tools`,
+      title: `${txt.title} — Dev Toolkit`,
       description: txt.description,
       url: urlPath,
     },

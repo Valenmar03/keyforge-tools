@@ -54,8 +54,8 @@ export default function Header() {
               <Key className="w-5 h-5 text-white" />
             </div>
             <span className="text-xl font-bold text-slate-900">
-              {t("brand")}
-              <span className="text-blue-600">{t("brandSuffix")}</span>
+              Dev
+              <span className="text-blue-600"> Toolkit</span>
             </span>
           </Link>
 
