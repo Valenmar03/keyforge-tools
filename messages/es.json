@@ -27,9 +27,9 @@
   },
   "home": {
     "privacyBadge": "100% en el navegador • Ningún dato sale de tu dispositivo",
-    "headlinePrefix": "Herramientas rápidas y privadas para",
+    "headlinePrefix": "Herramientas gratuitas para ",
     "headlineHighlight": "Desarrolladores",
-    "subheadline": "Generadores de contraseñas seguras, formateadores de JSON, codificadores y más de 20 utilidades para desarrolladores. Todo se ejecuta localmente en tu navegador: tus datos nunca salen de tu dispositivo.",
+    "subheadline": "Generadores de contraseñas seguras, formateadores de JSON, codificadores y 20+ utilidades para desarrolladores. Todo se ejecuta localmente en tu navegador: tus datos nunca salen de tu dispositivo.",
     "searchPlaceholder": "Busca herramientas... (ej., password, json, base64)",
     "browseAllTools": "Ver todas las herramientas",
     "viewCategories": "Ver categorías",
@@ -83,7 +83,49 @@
     "privacyTitle": "Privacidad primero, siempre",
     "privacyBody": "Cada herramienta de Dev Toolkit procesa tus datos localmente en tu navegador. Sin llamadas al servidor, sin analíticas, sin tracking. Tus datos se quedan en tu dispositivo.",
     "ctaTitle": "¿Listo para usar nuestras herramientas?",
-    "ctaButton": "Explorar todas las herramientas"
+    "ctaButton": "Explorar todas las herramientas",
+    "faqItems": {
+      "dataSafety": {
+        "question": "¿Mis datos están seguros al usar estas herramientas?",
+        "answer": "Sí. Todas las herramientas se ejecutan 100% del lado del cliente en tu navegador. Ningún dato se transmite a ningún servidor. Tus contraseñas, tokens e información sensible nunca salen de tu dispositivo. Podés verificarlo en la pestaña Network de tu navegador: no debería aparecer ninguna request nueva al usar una herramienta."
+      },
+      "clientSideExecution": {
+        "question": "¿Cómo funciona la ejecución del lado del cliente?",
+        "answer": "Cuando cargás una página, el JavaScript de esa herramienta se descarga en tu navegador. A partir de ahí, todo el procesamiento ocurre localmente en tu computadora. Por ejemplo, la generación de contraseñas usa crypto.getRandomValues(), un API criptográficamente seguro integrado en los navegadores modernos. No interviene ningún servidor."
+      },
+      "randomNumbers": {
+        "question": "¿Los números aleatorios son realmente aleatorios?",
+        "answer": "Usamos crypto.getRandomValues(), un generador de números pseudoaleatorios criptográficamente seguro (CSPRNG). Obtiene entropía del pool de aleatoriedad de tu sistema operativo. Es la misma clase de API que se usa para generar claves criptográficas en muchas aplicaciones del mundo real."
+      },
+      "offlineUsage": {
+        "question": "¿Puedo usar estas herramientas sin conexión?",
+        "answer": "Sí. Una vez que la página se cargó, podés desconectarte y seguir usando la herramienta porque toda la lógica corre en tu navegador. La única limitación es navegar a páginas que todavía no hayas cargado (a menos que estén en caché)."
+      },
+      "analyticsTracking": {
+        "question": "¿Usan analíticas o tracking?",
+        "answer": "No. No incluimos scripts de analítica ni píxeles de seguimiento. También evitamos recolectar direcciones IP o datos de uso. Las herramientas de privacidad deben predicar con el ejemplo."
+      },
+      "trust": {
+        "question": "¿Por qué debería confiar en estas herramientas?",
+        "answer": "Por tres motivos: (1) Todo se ejecuta localmente; podés verificarlo en la pestaña Network. (2) Nos apoyamos en APIs nativas del navegador bien establecidas como crypto.getRandomValues(). (3) El enfoque de seguridad es transparente y sigue buenas prácticas comunes (por ejemplo, evitar el sesgo de módulo en la generación aleatoria)."
+      },
+      "productionUse": {
+        "question": "¿Estas herramientas son adecuadas para producción?",
+        "answer": "Para muchos casos de uso, sí: contraseñas, tokens y UUIDs son aptos. Para operaciones como hashing con bcrypt, recomendamos hacerlo del lado del servidor en entornos de producción. La herramienta de bcrypt se debe tratar principalmente como educativa/demostrativa, a menos que uses una librería de bcrypt real y tengas claros sus límites."
+      },
+      "browserSupport": {
+        "question": "¿Qué navegadores son compatibles?",
+        "answer": "Todos los navegadores modernos: Chrome, Firefox, Safari y Edge (versiones recientes). Las herramientas requieren JavaScript y crypto.getRandomValues(). Internet Explorer no está soportado."
+      },
+      "contributeBugs": {
+        "question": "¿Puedo contribuir o reportar errores?",
+        "answer": "Sí, cualquier feedback es bienvenido. Si encontrás un bug o tenés una idea para una nueva herramienta, compartila con nosotros. Se agradecen especialmente los reportes relacionados con seguridad."
+      },
+      "whyCreateSite": {
+        "question": "¿Por qué crear otro sitio de herramientas para desarrolladores?",
+        "answer": "Muchas herramientas online procesan los datos en servidores (y a menudo incluyen analíticas). Nosotros queríamos un conjunto de herramientas realmente privado, rápido y del lado del cliente, donde los desarrolladores puedan trabajar con datos sensibles sin preocuparse por que se transmitan."
+      }
+    }
   },
   "toolLayout": {
     "breadcrumbsHome": "Inicio",

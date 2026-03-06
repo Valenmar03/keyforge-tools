@@ -41,8 +41,20 @@ export default function Header() {
   );
 
   const isActive = useMemo(() => {
-    return (href: string) => pathname?.startsWith(href);
-  }, [pathname]);
+    return (href: string) => {
+      if (!pathname) return false;
+
+      const [currentPath] = pathname.split("?");
+
+      // Home: match only exact locale root (e.g. /es, /en)
+      if (href === `/${locale}`) {
+        return currentPath === href;
+      }
+
+      // Other links (tools, faq): allow subpaths (e.g. /es/tools/..., /es/faq)
+      return currentPath.startsWith(href);
+    };
+  }, [pathname, locale]);
 
   return (
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-100">

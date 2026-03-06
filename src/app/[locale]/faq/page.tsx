@@ -13,16 +13,18 @@ import { useTranslations } from "next-intl";
 
 export default function FaqPage() {
   const t = useTranslations("faqPage");
+  const tFaq = useTranslations("faqPage.faqItems");
+
   // JSON-LD FAQ schema (SEO)
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     mainEntity: faqs.map((f) => ({
       "@type": "Question",
-      name: f.question,
+      name: tFaq(`${f.id}.question`),
       acceptedAnswer: {
         "@type": "Answer",
-        text: f.answer,
+        text: tFaq(`${f.id}.answer`),
       },
     })),
   };
@@ -73,12 +75,14 @@ export default function FaqPage() {
                       <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center shrink-0">
                         <Icon className="w-5 h-5 text-blue-600" />
                       </div>
-                      <span className="font-medium text-slate-900">{faq.question}</span>
+                      <span className="font-medium text-slate-900">
+                        {tFaq(`${faq.id}.question`)}
+                      </span>
                     </div>
                   </AccordionTrigger>
 
                   <AccordionContent className="text-slate-600 pb-5">
-                    <div className="pl-14">{faq.answer}</div>
+                    <div className="pl-14">{tFaq(`${faq.id}.answer`)}</div>
                   </AccordionContent>
                 </AccordionItem>
               );
