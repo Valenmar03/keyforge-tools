@@ -1,0 +1,78 @@
+"use client";
+
+import React, { useCallback, useEffect, useState } from "react";
+import { Lock } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { CopyButton } from "@/components/ui/CopyButton";
+
+async function sha256Hex(text: string): Promise<string> {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(text);
+  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+export default function Sha256HashGenerator() {
+  const [input, setInput] = useState<string>("");
+  const [hash, setHash] = useState<string>("");
+
+  const computeHash = useCallback(async () => {
+    if (!input) {
+      setHash("");
+      return;
+    }
+    try {
+      const result = await sha256Hex(input);
+      setHash(result);
+    } catch {
+      setHash("");
+    }
+  }, [input]);
+
+  useEffect(() => {
+    computeHash();
+  }, [computeHash]);
+
+  return (
+    <div className="space-y-6">
+      {/* Input */}
+      <div className="space-y-2">
+        <Label className="text-sm font-medium text-slate-700">Text to Hash</Label>
+        <Input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Enter text..."
+          className="font-mono"
+        />
+      </div>
+
+      {/* Output */}
+      <div className="space-y-2">
+        <div className="flex items-center justify-between">
+          <Label className="text-sm font-medium text-slate-700">SHA-256 Hash (hex)</Label>
+          {hash && (
+            <CopyButton text={hash} variant="outline" size="sm" className="h-7" />
+          )}
+        </div>
+        <div className="bg-slate-900 rounded-xl p-4 min-h-[60px]">
+          <code className="text-green-400 font-mono text-sm break-all">
+            {hash || (
+              <span className="text-slate-500">Hash will appear here...</span>
+            )}
+          </code>
+        </div>
+      </div>
+
+      {/* Privacy Note */}
+      <div className="flex items-start gap-3 p-4 bg-green-50 border border-green-100 rounded-xl">
+        <Lock className="w-5 h-5 text-green-500 shrink-0 mt-0.5" />
+        <p className="text-sm text-green-800">
+          Hashing happens entirely in your browser. Your data is never transmitted anywhere.
+        </p>
+      </div>
+    </div>
+  );
+}

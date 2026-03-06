@@ -9,8 +9,14 @@ const tools = [
   'api-key-generator',
   'bcrypt-hash-generator',
   'jwt-decoder',
+  'sha256-hash-generator',
+  'md5-hash-generator',
   'uuid-generator',
+  'json-minify',
   'json-formatter',
+  'json-to-csv-converter',
+  'csv-to-json-converter',
+  'json-diff-compare',
   'base64-encoder-decoder',
   'url-encoder-decoder',
   'timestamp-converter',
@@ -22,7 +28,11 @@ const tools = [
   'slugify-text',
   'text-case-converter',
   'whitespace-cleaner',
-  'markdown-preview'
+  'markdown-preview',
+  'html-encoder-decoder',
+  'qr-code-generator',
+  'word-counter',
+  'character-counter'
 ]
 
 export default function sitemap(): MetadataRoute.Sitemap {

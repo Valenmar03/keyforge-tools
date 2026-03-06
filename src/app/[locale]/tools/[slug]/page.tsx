@@ -18,10 +18,17 @@ import PasswordGenerator from "@/components/tools/security/PasswordGenerator";
 import PasswordStrengthChecker from "@/components/tools/security/PasswordStrengthChecker";
 import RandomTokenGenerator from "@/components/tools/security/RandomTokenGenerator";
 import JwtDecoder from "@/components/tools/security/JwtDecoder";
+import Md5HashGenerator from "@/components/tools/security/Md5HashGenerator";
+import Sha256HashGenerator from "@/components/tools/security/Sha256HashGenerator";
 
 import UuidGenerator from "@/components/tools/devutils/UuidGenerator";
+import JsonMinify from "@/components/tools/devutils/JsonMinify";
 import JsonFormatter from "@/components/tools/devutils/JsonFormatter";
+import JsonToCsvConverter from "@/components/tools/devutils/JsonToCsvConverter";
+import CsvToJsonConverter from "@/components/tools/devutils/CsvToJsonConverter";
+import JsonDiffCompare from "@/components/tools/devutils/JsonDiffCompare";
 import Base64EncoderDecoder from "@/components/tools/devutils/Base64EncoderDecoder";
+import HtmlEncoderDecoder from "@/components/tools/devutils/HtmlEncoderDecoder";
 import UrlEncoderDecoder from "@/components/tools/devutils/UrlEncoderDecoder";
 import TimestampConverter from "@/components/tools/devutils/TimesStampConverter";
 import RegexTester from "@/components/tools/devutils/RegexTester";
@@ -34,6 +41,9 @@ import SlugifyText from "@/components/tools/generators/SlugifyText";
 import TextCaseConverter from "@/components/tools/generators/TextCaseConverter";
 import WhitespaceCleaner from "@/components/tools/generators/WhitespaceCleaner";
 import MarkdownPreview from "@/components/tools/generators/MarkdownPreview";
+import WordCounter from "@/components/tools/generators/WordCounter";
+import CharacterCounter from "@/components/tools/generators/CharacterCounter";
+import QrCodeGenerator from "@/components/tools/generators/QrCodeGenerator";
 
 const toolComponents: Record<string, ComponentType> = {
   "api-key-generator": ApiKeyGenerator,
@@ -42,10 +52,17 @@ const toolComponents: Record<string, ComponentType> = {
   "password-strength-checker": PasswordStrengthChecker,
   "random-token-generator": RandomTokenGenerator,
   "jwt-decoder": JwtDecoder,
+  "md5-hash-generator": Md5HashGenerator,
+  "sha256-hash-generator": Sha256HashGenerator,
 
   "uuid-generator": UuidGenerator,
+  "json-minify": JsonMinify,
   "json-formatter": JsonFormatter,
+  "json-to-csv-converter": JsonToCsvConverter,
+  "csv-to-json-converter": CsvToJsonConverter,
+  "json-diff-compare": JsonDiffCompare,
   "base64-encoder-decoder": Base64EncoderDecoder,
+  "html-encoder-decoder": HtmlEncoderDecoder,
   "url-encoder-decoder": UrlEncoderDecoder,
   "timestamp-converter": TimestampConverter,
   "regex-tester": RegexTester,
@@ -58,6 +75,9 @@ const toolComponents: Record<string, ComponentType> = {
   "text-case-converter": TextCaseConverter,
   "whitespace-cleaner": WhitespaceCleaner,
   "markdown-preview": MarkdownPreview,
+  "qr-code-generator": QrCodeGenerator,
+  "word-counter": WordCounter,
+  "character-counter": CharacterCounter,
 };
 
 type Params = { locale: Locale; slug: string };

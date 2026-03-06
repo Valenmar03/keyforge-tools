@@ -29,7 +29,7 @@
     "privacyBadge": "100% Client-Side • No Data Leaves Your Browser",
     "headlinePrefix": "Free online tools for ",
     "headlineHighlight": "Developers",
-    "subheadline": "Secure password generators, JSON formatters, encoders, and 20+ developer utilities. Everything runs locally in your browser—your data never leaves your device.",
+    "subheadline": "Secure password generators, JSON formatters, encoders, and 30+ developer utilities. Everything runs locally in your browser—your data never leaves your device.",
     "searchPlaceholder": "Search tools... (e.g., password, json, base64)",
     "browseAllTools": "Browse All Tools",
     "viewCategories": "View Categories",
@@ -229,6 +229,30 @@
         ]
       },
 
+      "sha256-hash-generator": {
+        "title": "SHA256 Hash Generator",
+        "description": "Generate SHA-256 hashes from text using the Web Crypto API. Fast, secure, and runs entirely in your browser.",
+        "keywords": ["SHA256", "SHA-256", "hash", "checksum", "cryptographic hash"],
+        "seoContent": "## What is SHA-256?\nSHA-256 is a cryptographic hash function that produces a 256-bit (64 hex character) fingerprint of any input.\n\n## Use cases\n- File integrity verification\n- Password hashing (with salt)\n- Digital signatures\n- Blockchain and cryptocurrencies\n\n## Privacy\nHashing runs 100% in your browser via the Web Crypto API. No data is sent to any server.",
+        "faq": [
+          { "q": "Is SHA-256 secure?", "a": "Yes. It's cryptographically strong and widely used for integrity and signatures." },
+          { "q": "Can I reverse a SHA-256 hash?", "a": "No. It's a one-way function; you cannot recover the original input." },
+          { "q": "SHA-256 vs MD5?", "a": "SHA-256 is more secure. MD5 is broken for security; use SHA-256 for new projects." }
+        ]
+      },
+
+      "md5-hash-generator": {
+        "title": "MD5 Hash Generator",
+        "description": "Generate MD5 hashes from text. Useful for checksums and legacy compatibility—not recommended for security.",
+        "keywords": ["MD5", "hash", "checksum", "legacy", "file integrity"],
+        "seoContent": "## What is MD5?\nMD5 is a 128-bit hash function. It's fast but cryptographically broken.\n\n## When to use\n- Legacy systems and APIs\n- Non-security checksums (e.g., cache keys)\n- File integrity where collision resistance isn't critical\n\n## Security warning\nDo not use MD5 for passwords or security-sensitive hashing. Use SHA-256 or bcrypt instead.",
+        "faq": [
+          { "q": "Is MD5 secure for passwords?", "a": "No. MD5 is broken; use bcrypt or Argon2 for passwords." },
+          { "q": "Why is MD5 still used?", "a": "Legacy compatibility, cache keys, and non-security checksums." },
+          { "q": "Can two inputs produce the same MD5 hash?", "a": "Yes. Collisions are known; avoid MD5 for security." }
+        ]
+      },
+
       "uuid-generator": {
         "title": "UUID Generator",
         "description": "Generate RFC 4122 compliant UUIDs (v4) using cryptographically secure randomness.",
@@ -253,6 +277,54 @@
         ]
       },
 
+      "json-minify": {
+        "title": "JSON Minify",
+        "description": "Minify JSON by removing whitespace and newlines. Validates syntax and shows friendly errors.",
+        "keywords": ["JSON", "minify", "compress", "compact", "whitespace"],
+        "seoContent": "## What is JSON minification?\nMinification removes unnecessary whitespace, newlines, and indentation from JSON to reduce size.\n\n## Use cases\n- API payloads (smaller requests)\n- Config files\n- Embedding JSON in HTML/attributes\n\n## Validation\nInvalid JSON shows a clear error message. Fix syntax before minifying.",
+        "faq": [
+          { "q": "Why minify JSON?", "a": "Smaller payloads mean faster transfers and lower bandwidth." },
+          { "q": "Does it change the data?", "a": "No. Minification only removes whitespace; the structure stays the same." },
+          { "q": "My JSON is invalid. What's wrong?", "a": "Check for trailing commas, single quotes, unquoted keys, or comments." }
+        ]
+      },
+
+      "json-to-csv-converter": {
+        "title": "JSON to CSV Converter",
+        "description": "Convert JSON arrays of objects to CSV. Validates JSON, generates headers, and lets you copy or download the result.",
+        "keywords": ["JSON", "CSV", "convert", "export", "table", "spreadsheet"],
+        "seoContent": "## JSON to CSV\nConvert structured JSON into a CSV file for spreadsheets, analytics tools, or quick sharing.\n\n## Best input format\nThis tool works best with an **array of objects**:\n\n```json\n[{\"name\":\"Ada\",\"age\":36},{\"name\":\"Linus\",\"age\":55}]\n```\n\n## Notes\n- Headers are derived from object keys\n- Missing values become empty cells\n- Nested objects/arrays are stringified\n\n## Privacy\nConversion runs locally in your browser. No data is uploaded.",
+        "faq": [
+          { "q": "What JSON formats are supported?", "a": "The common case is an array of objects. A single object is also supported and will be treated as one row." },
+          { "q": "How are nested objects handled?", "a": "Nested objects and arrays are JSON-stringified inside the CSV cell." },
+          { "q": "Why do some values have quotes?", "a": "CSV requires quoting when values contain commas, quotes, or newlines." }
+        ]
+      },
+
+      "csv-to-json-converter": {
+        "title": "CSV to JSON Converter",
+        "description": "Convert CSV to JSON (array of objects). Uses the first row as headers, handles quoted fields, and outputs formatted JSON.",
+        "keywords": ["CSV", "JSON", "convert", "parse", "headers", "export"],
+        "seoContent": "## CSV to JSON\nConvert comma-separated values into JSON for APIs, scripting, and data processing.\n\n## How it works\n- First row = headers (property names)\n- Each following row becomes an object\n- Quoted fields are supported (including escaped quotes)\n\n## Tip\nIf your CSV has numbers/booleans, enable type inference for a more natural JSON output.\n\n## Privacy\nEverything runs in your browser. No server calls.",
+        "faq": [
+          { "q": "Does it support quoted CSV?", "a": "Yes. It supports RFC4180-style quoted fields and escaped quotes (\"\")." },
+          { "q": "What happens if a row has a different number of columns?", "a": "The tool reports an error so you can fix the input." },
+          { "q": "Does it infer numbers and booleans?", "a": "Optionally. When enabled, values like 42, true, false, and null are converted to proper JSON types." }
+        ]
+      },
+
+      "json-diff-compare": {
+        "title": "JSON Diff / JSON Compare",
+        "description": "Compare two JSON documents to see if they are equivalent and get a readable list of differences by path.",
+        "keywords": ["JSON", "diff", "compare", "difference", "deep equal", "debug"],
+        "seoContent": "## JSON compare\nPaste **JSON A** and **JSON B** to check whether they represent the same data.\n\n## What you get\n- Validates both JSON inputs\n- Reports whether they are equivalent\n- Lists differences with paths like `$..key` and `$.items[0]`\n\n## Notes\n- Object key order does not matter\n- Array order does matter\n\n## Privacy\nComparison runs locally in your browser. Nothing is uploaded.",
+        "faq": [
+          { "q": "Does key order matter?", "a": "No. Objects are compared by keys/values regardless of ordering." },
+          { "q": "Does array order matter?", "a": "Yes. Arrays are compared by index, so reordering items will produce differences." },
+          { "q": "Is this a patch generator?", "a": "No. It shows a readable diff list; it does not output JSON Patch/RFC6902." }
+        ]
+      },
+
       "base64-encoder-decoder": {
         "title": "Base64 Encoder/Decoder",
         "description": "Encode text to Base64 or decode Base64 strings back to plain text.",
@@ -274,6 +346,18 @@
           { "q": "When should I URL encode?", "a": "Encode user input before adding it to a URL." },
           { "q": "Why spaces are + or %20?", "a": "+ is common in query strings; %20 is standard encoding." },
           { "q": "Encode entire URL or a param?", "a": "encodeURI for full URL, encodeURIComponent for params." }
+        ]
+      },
+
+      "html-encoder-decoder": {
+        "title": "HTML Encoder/Decoder",
+        "description": "Encode text to HTML entities or decode HTML entities back to plain text. Handles &lt; &gt; &amp; &quot; and more.",
+        "keywords": ["HTML", "encode", "decode", "entities", "escape", "XSS"],
+        "seoContent": "## HTML encoding\nConverts special characters to HTML entities so they display safely in web pages.\n\n## Entities\n&lt; &gt; &amp; &quot; &#39; — prevents script injection and displays reserved chars.\n\n## Use cases\nUser-generated content, escaping output, preventing XSS.\n\n## Not encryption\nAnyone can decode. Use for display safety, not secrecy.",
+        "faq": [
+          { "q": "When should I HTML encode?", "a": "When displaying user input or untrusted content in HTML to prevent XSS." },
+          { "q": "HTML encode vs URL encode?", "a": "HTML encode for body content; URL encode for query params and URLs." },
+          { "q": "Does it handle all entities?", "a": "It encodes the main five; decoding handles common numeric and named entities." }
         ]
       },
 
@@ -386,6 +470,61 @@
         "faq": [
           { "q": "Which Markdown flavor is supported?", "a": "GitHub-flavored Markdown (GFM) is the usual standard." },
           { "q": "Can I export HTML?", "a": "If the tool offers it, use Copy HTML / Export options." }
+        ]
+      },
+
+      "qr-code-generator": {
+        "title": "QR Code Generator",
+        "description": "Generate QR codes for URLs, text, Wi‑Fi, and more. Preview instantly and download as PNG or SVG.",
+        "keywords": ["QR code", "qrcode", "generator", "URL", "PNG", "SVG"],
+        "seoContent": "## What is a QR code generator?\nA QR code generator creates a scannable QR image that encodes data such as a URL, text, or configuration payload.\n\n## Common use cases\n- Share a URL quickly\n- Print QR codes for menus, posters, events\n- Encode short text snippets\n- Wi‑Fi setup codes (when using the proper format)\n\n## Privacy\nQR generation runs locally in your browser. Your input is not uploaded.\n\n## Tips\n- Use higher error correction when printing or when the QR might be damaged\n- Keep payloads short for simpler, easier-to-scan codes",
+        "faq": [
+          { "q": "Is my data sent to a server?", "a": "No. QR generation happens locally in your browser." },
+          { "q": "PNG or SVG—which should I download?", "a": "SVG is best for printing and scaling. PNG is convenient for sharing and images." },
+          { "q": "What is error correction?", "a": "QR codes can include redundancy so scanners can recover data even if parts are missing or damaged." }
+        ],
+        "ui": {
+          "inputLabel": "Text or URL",
+          "placeholder": "Paste a URL or type text to generate a QR code...",
+          "clear": "Clear",
+          "characters": "{count} characters",
+          "errorCorrection": "Error correction",
+          "size": "Size",
+          "margin": "Margin",
+          "preview": "QR Preview",
+          "downloadPng": "PNG",
+          "downloadSvg": "SVG",
+          "emptyTitle": "No QR code yet",
+          "emptyBody": "Enter text or a URL above to generate a QR code preview.",
+          "privacyTitle": "Privacy:",
+          "privacyBody": "This tool runs entirely in your browser. No data is sent to any server.",
+          "errors": {
+            "generic": "Failed to generate QR code."
+          }
+        }
+      },
+
+      "word-counter": {
+        "title": "Word Counter",
+        "description": "Count words, lines, paragraphs, and characters in your text. Simple and fast.",
+        "keywords": ["word count", "words", "lines", "paragraphs", "text stats", "writing"],
+        "seoContent": "## Word counter\nCount words, lines, paragraphs, and characters in real time.\n\n## Use cases\n- Blog posts and articles\n- Essays and assignments\n- SEO meta descriptions\n- Social media limits\n\n## How it works\nWords are split by whitespace. Paragraphs are blocks separated by blank lines.",
+        "faq": [
+          { "q": "How are words counted?", "a": "Words are split by whitespace (spaces, tabs, newlines)." },
+          { "q": "What counts as a paragraph?", "a": "Blocks of text separated by one or more blank lines." },
+          { "q": "Does it work offline?", "a": "Yes. Everything runs in your browser; no data is sent." }
+        ]
+      },
+
+      "character-counter": {
+        "title": "Character Counter",
+        "description": "Count characters with and without spaces. Useful for tweets, meta descriptions, and character limits.",
+        "keywords": ["character count", "characters", "spaces", "length", "Twitter", "meta"],
+        "seoContent": "## Character counter\nCount total characters and characters without spaces.\n\n## Use cases\n- Twitter/X (280 chars)\n- Meta descriptions (~155)\n- SMS limits\n- Form validation\n\n## Stats\nShows total chars, chars without spaces, plus words and lines for context.",
+        "faq": [
+          { "q": "Characters with vs without spaces?", "a": "With spaces = full length. Without spaces = excludes spaces, tabs, newlines." },
+          { "q": "Does it match Twitter's count?", "a": "Twitter counts differently (e.g. URLs). This is a simple character count." },
+          { "q": "Does it work offline?", "a": "Yes. Everything runs locally in your browser." }
         ]
       }
     }

@@ -29,7 +29,7 @@
     "privacyBadge": "100% en el navegador • Ningún dato sale de tu dispositivo",
     "headlinePrefix": "Herramientas gratuitas para ",
     "headlineHighlight": "Desarrolladores",
-    "subheadline": "Generadores de contraseñas seguras, formateadores de JSON, codificadores y 20+ utilidades para desarrolladores. Todo se ejecuta localmente en tu navegador: tus datos nunca salen de tu dispositivo.",
+    "subheadline": "Generadores de contraseñas seguras, formateadores de JSON, codificadores y 30+ utilidades para desarrolladores. Todo se ejecuta localmente en tu navegador: tus datos nunca salen de tu dispositivo.",
     "searchPlaceholder": "Busca herramientas... (ej., password, json, base64)",
     "browseAllTools": "Ver todas las herramientas",
     "viewCategories": "Ver categorías",
@@ -597,6 +597,30 @@
         ]
       },
 
+      "sha256-hash-generator": {
+        "title": "Generador de Hash SHA256",
+        "description": "Generá hashes SHA-256 desde texto usando la Web Crypto API. Rápido, seguro y corre 100% en tu navegador.",
+        "keywords": ["SHA256", "SHA-256", "hash", "checksum", "hash criptográfico"],
+        "seoContent": "## ¿Qué es SHA-256?\nSHA-256 es una función de hash criptográfica que produce una huella de 256 bits (64 caracteres hex) de cualquier entrada.\n\n## Casos de uso\n- Verificación de integridad de archivos\n- Hashing de contraseñas (con salt)\n- Firmas digitales\n- Blockchain y criptomonedas\n\n## Privacidad\nEl hashing corre 100% en tu navegador vía Web Crypto API. No se envía nada a ningún servidor.",
+        "faq": [
+          { "q": "¿SHA-256 es seguro?", "a": "Sí. Es criptográficamente fuerte y muy usado para integridad y firmas." },
+          { "q": "¿Puedo revertir un hash SHA-256?", "a": "No. Es una función unidireccional; no se puede recuperar la entrada original." },
+          { "q": "¿SHA-256 vs MD5?", "a": "SHA-256 es más seguro. MD5 está roto para seguridad; usá SHA-256 en proyectos nuevos." }
+        ]
+      },
+
+      "md5-hash-generator": {
+        "title": "Generador de Hash MD5",
+        "description": "Generá hashes MD5 desde texto. Útil para checksums y compatibilidad legacy—no recomendado para seguridad.",
+        "keywords": ["MD5", "hash", "checksum", "legacy", "integridad de archivos"],
+        "seoContent": "## ¿Qué es MD5?\nMD5 es una función de hash de 128 bits. Es rápida pero criptográficamente rota.\n\n## Cuándo usar\n- Sistemas y APIs legacy\n- Checksums no seguros (ej. claves de caché)\n- Integridad de archivos donde la resistencia a colisiones no es crítica\n\n## Advertencia de seguridad\nNo uses MD5 para contraseñas ni hashing sensible. Usá SHA-256 o bcrypt.",
+        "faq": [
+          { "q": "¿MD5 es seguro para contraseñas?", "a": "No. MD5 está roto; usá bcrypt o Argon2 para contraseñas." },
+          { "q": "¿Por qué se sigue usando MD5?", "a": "Compatibilidad legacy, claves de caché y checksums no seguros." },
+          { "q": "¿Dos entradas pueden dar el mismo hash MD5?", "a": "Sí. Se conocen colisiones; evitá MD5 para seguridad." }
+        ]
+      },
+
       "uuid-generator": {
         "title": "Generador de UUID",
         "description": "Generá UUIDs (v4) compatibles con RFC 4122 usando aleatoriedad segura.",
@@ -621,6 +645,54 @@
         ]
       },
 
+      "json-minify": {
+        "title": "Minificador JSON",
+        "description": "Minificá JSON eliminando espacios y saltos de línea. Valida sintaxis y muestra errores amigables.",
+        "keywords": ["JSON", "minify", "comprimir", "compactar", "whitespace"],
+        "seoContent": "## ¿Qué es minificar JSON?\nLa minificación elimina espacios innecesarios, saltos de línea e indentación para reducir el tamaño.\n\n## Casos de uso\n- Payloads de API (requests más pequeños)\n- Archivos de configuración\n- Embeber JSON en HTML/atributos\n\n## Validación\nJSON inválido muestra un mensaje de error claro. Corregí la sintaxis antes de minificar.",
+        "faq": [
+          { "q": "¿Por qué minificar JSON?", "a": "Payloads más chicos = transferencias más rápidas y menos ancho de banda." },
+          { "q": "¿Cambia los datos?", "a": "No. Solo se elimina whitespace; la estructura se mantiene." },
+          { "q": "Mi JSON es inválido. ¿Qué está mal?", "a": "Revisá comas finales, comillas simples, keys sin comillas o comentarios." }
+        ]
+      },
+
+      "json-to-csv-converter": {
+        "title": "Convertidor de JSON a CSV",
+        "description": "Convertí arrays de objetos JSON a CSV. Valida el JSON, genera headers y te deja copiar o descargar el resultado.",
+        "keywords": ["JSON", "CSV", "convertir", "exportar", "tabla", "spreadsheet"],
+        "seoContent": "## JSON a CSV\nConvertí JSON estructurado a CSV para planillas, herramientas de análisis o compartir rápido.\n\n## Formato recomendado\nEsta herramienta funciona mejor con un **array de objetos**:\n\n```json\n[{\"name\":\"Ada\",\"age\":36},{\"name\":\"Linus\",\"age\":55}]\n```\n\n## Notas\n- Los headers se toman de las keys\n- Valores faltantes quedan como celdas vacías\n- Objetos/arrays anidados se serializan como JSON\n\n## Privacidad\nLa conversión corre localmente en tu navegador. No se sube nada.",
+        "faq": [
+          { "q": "¿Qué formatos de JSON soporta?", "a": "El caso común es un array de objetos. También se soporta un objeto único (se trata como una sola fila)." },
+          { "q": "¿Qué pasa con objetos anidados?", "a": "Se convierten a texto usando JSON.stringify dentro de la celda del CSV." },
+          { "q": "¿Por qué algunos valores llevan comillas?", "a": "CSV requiere comillas cuando hay comas, comillas o saltos de línea." }
+        ]
+      },
+
+      "csv-to-json-converter": {
+        "title": "Convertidor de CSV a JSON",
+        "description": "Convertí CSV a JSON (array de objetos). Usa la primera fila como headers, soporta comillas y devuelve JSON formateado.",
+        "keywords": ["CSV", "JSON", "convertir", "parsear", "headers", "exportar"],
+        "seoContent": "## CSV a JSON\nConvertí valores separados por comas a JSON para APIs, scripts y procesamiento de datos.\n\n## Cómo funciona\n- Primera fila = headers (nombres de propiedades)\n- Cada fila siguiente se convierte en un objeto\n- Soporta campos entre comillas (incluye comillas escapadas)\n\n## Tip\nSi tu CSV tiene números/booleanos, activá la inferencia de tipos para un JSON más natural.\n\n## Privacidad\nTodo corre en tu navegador. Sin llamadas al servidor.",
+        "faq": [
+          { "q": "¿Soporta CSV con campos entre comillas?", "a": "Sí. Soporta campos estilo RFC4180 y comillas escapadas (\"\")." },
+          { "q": "¿Qué pasa si una fila tiene distinta cantidad de columnas?", "a": "La herramienta muestra un error para que puedas corregir el input." },
+          { "q": "¿Convierte números y booleanos?", "a": "Opcionalmente. Si activás la opción, 42/true/false/null se convierten a tipos JSON reales." }
+        ]
+      },
+
+      "json-diff-compare": {
+        "title": "JSON Diff / Comparar JSON",
+        "description": "Compará dos JSON para ver si son equivalentes y obtené una lista legible de diferencias por path.",
+        "keywords": ["JSON", "diff", "comparar", "diferencias", "deep equal", "debug"],
+        "seoContent": "## Comparar JSON\nPegá **JSON A** y **JSON B** para verificar si representan los mismos datos.\n\n## Qué obtenés\n- Validación de ambos JSON\n- Indicador de equivalencia\n- Lista de diferencias con paths como `$..key` y `$.items[0]`\n\n## Notas\n- El orden de keys en objetos no importa\n- El orden en arrays sí importa\n\n## Privacidad\nLa comparación corre localmente. No se sube nada a servidores.",
+        "faq": [
+          { "q": "¿Importa el orden de las keys?", "a": "No. Los objetos se comparan por keys/valores sin importar el orden." },
+          { "q": "¿Importa el orden de los arrays?", "a": "Sí. Los arrays se comparan por índice, así que reordenar elementos produce diferencias." },
+          { "q": "¿Esto genera un patch?", "a": "No. Muestra una lista de diferencias legible; no genera JSON Patch/RFC6902." }
+        ]
+      },
+
       "base64-encoder-decoder": {
         "title": "Codificador/Decodificador Base64",
         "description": "Codificá texto a Base64 o decodificá Base64 a texto plano.",
@@ -642,6 +714,18 @@
           { "q": "¿Cuándo debo codificar?", "a": "Codificá input de usuario antes de armar una URL." },
           { "q": "¿Por qué espacios son + o %20?", "a": "+ es común en query strings; %20 es el encoding estándar." },
           { "q": "¿Codifico URL completa o parámetro?", "a": "encodeURI para URL completa; encodeURIComponent para params." }
+        ]
+      },
+
+      "html-encoder-decoder": {
+        "title": "Codificador/Decodificador HTML",
+        "description": "Codificá texto a entidades HTML o decodificá entidades HTML a texto plano. Maneja &lt; &gt; &amp; &quot; y más.",
+        "keywords": ["HTML", "encode", "decode", "entidades", "escape", "XSS"],
+        "seoContent": "## Codificación HTML\nConvierte caracteres especiales a entidades HTML para mostrarlos de forma segura en páginas web.\n\n## Entidades\n&lt; &gt; &amp; &quot; &#39; — evita inyección de scripts y muestra caracteres reservados.\n\n## Casos de uso\nContenido generado por usuarios, escapar output, prevenir XSS.\n\n## No es encriptación\nCualquiera puede decodificar. Usalo para seguridad de visualización, no para secretos.",
+        "faq": [
+          { "q": "¿Cuándo debo codificar HTML?", "a": "Al mostrar input de usuario o contenido no confiable en HTML para prevenir XSS." },
+          { "q": "¿HTML encode vs URL encode?", "a": "HTML encode para contenido del body; URL encode para query params y URLs." },
+          { "q": "¿Maneja todas las entidades?", "a": "Codifica las cinco principales; decodificar maneja entidades numéricas y nombradas comunes." }
         ]
       },
 
@@ -754,6 +838,61 @@
         "faq": [
           { "q": "¿Qué variante de Markdown soporta?", "a": "Lo usual es GitHub-flavored Markdown (GFM)." },
           { "q": "¿Puedo exportar HTML?", "a": "Si la herramienta lo ofrece, usá Copy HTML / Export." }
+        ]
+      },
+
+      "qr-code-generator": {
+        "title": "Generador de Códigos QR",
+        "description": "Generá códigos QR para URLs o texto. Previsualizá al instante y descargá en PNG o SVG.",
+        "keywords": ["código QR", "QR", "generador", "URL", "PNG", "SVG"],
+        "seoContent": "## ¿Qué es un generador de códigos QR?\nUn generador de QR crea una imagen escaneable que codifica datos como una URL, texto u otro payload.\n\n## Casos de uso comunes\n- Compartir una URL rápidamente\n- Imprimir QR para menús, posters, eventos\n- Codificar texto corto\n- Configuración Wi‑Fi (usando el formato correcto)\n\n## Privacidad\nLa generación corre localmente en tu navegador. Tu input no se sube.\n\n## Tips\n- Usá mayor corrección de errores si vas a imprimir o si el QR puede dañarse\n- Payloads más cortos suelen escanear mejor",
+        "faq": [
+          { "q": "¿Se envían mis datos a un servidor?", "a": "No. La generación del QR ocurre localmente en tu navegador." },
+          { "q": "PNG o SVG: ¿cuál conviene descargar?", "a": "SVG es ideal para imprimir y escalar. PNG es práctico para compartir como imagen." },
+          { "q": "¿Qué es la corrección de errores?", "a": "El QR puede incluir redundancia para que se pueda escanear aunque falten o estén dañadas partes." }
+        ],
+        "ui": {
+          "inputLabel": "Texto o URL",
+          "placeholder": "Pegá una URL o escribí texto para generar un QR...",
+          "clear": "Limpiar",
+          "characters": "{count} caracteres",
+          "errorCorrection": "Corrección de errores",
+          "size": "Tamaño",
+          "margin": "Margen",
+          "preview": "Vista previa",
+          "downloadPng": "PNG",
+          "downloadSvg": "SVG",
+          "emptyTitle": "Todavía no hay QR",
+          "emptyBody": "Ingresá texto o una URL arriba para generar la vista previa del código QR.",
+          "privacyTitle": "Privacidad:",
+          "privacyBody": "Esta herramienta corre completamente en tu navegador. No se envían datos a ningún servidor.",
+          "errors": {
+            "generic": "No se pudo generar el código QR."
+          }
+        }
+      },
+
+      "word-counter": {
+        "title": "Contador de Palabras",
+        "description": "Contá palabras, líneas, párrafos y caracteres en tu texto. Simple y rápido.",
+        "keywords": ["contador de palabras", "palabras", "líneas", "párrafos", "estadísticas texto", "escritura"],
+        "seoContent": "## Contador de palabras\nContá palabras, líneas, párrafos y caracteres en tiempo real.\n\n## Casos de uso\n- Posts de blog y artículos\n- Ensayos y tareas\n- Meta descripciones SEO\n- Límites de redes sociales\n\n## Cómo funciona\nLas palabras se separan por espacios en blanco. Los párrafos son bloques separados por líneas en blanco.",
+        "faq": [
+          { "q": "¿Cómo se cuentan las palabras?", "a": "Se separan por espacios en blanco (espacios, tabs, saltos de línea)." },
+          { "q": "¿Qué cuenta como párrafo?", "a": "Bloques de texto separados por una o más líneas en blanco." },
+          { "q": "¿Funciona offline?", "a": "Sí. Todo corre en tu navegador; no se envía ningún dato." }
+        ]
+      },
+
+      "character-counter": {
+        "title": "Contador de Caracteres",
+        "description": "Contá caracteres con y sin espacios. Útil para tweets, meta descripciones y límites de caracteres.",
+        "keywords": ["contador de caracteres", "caracteres", "espacios", "longitud", "Twitter", "meta"],
+        "seoContent": "## Contador de caracteres\nContá caracteres totales y caracteres sin espacios.\n\n## Casos de uso\n- Twitter/X (280 caracteres)\n- Meta descripciones (~155)\n- Límites de SMS\n- Validación de formularios\n\n## Estadísticas\nMuestra caracteres totales, sin espacios, más palabras y líneas para contexto.",
+        "faq": [
+          { "q": "¿Caracteres con o sin espacios?", "a": "Con espacios = longitud total. Sin espacios = excluye espacios, tabs y saltos de línea." },
+          { "q": "¿Coincide con el conteo de Twitter?", "a": "Twitter cuenta distinto (ej. URLs). Esto es un conteo simple de caracteres." },
+          { "q": "¿Funciona offline?", "a": "Sí. Todo corre localmente en tu navegador." }
         ]
       }
     }

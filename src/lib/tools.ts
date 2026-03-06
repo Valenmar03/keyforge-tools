@@ -89,6 +89,16 @@ export const toolDefs: ToolDef[] = [
     category: "security",
     relatedSlugs: ["base64-encoder-decoder", "json-formatter", "api-key-generator"],
   },
+  {
+    slug: "sha256-hash-generator",
+    category: "security",
+    relatedSlugs: ["md5-hash-generator", "bcrypt-hash-generator", "password-strength-checker"],
+  },
+  {
+    slug: "md5-hash-generator",
+    category: "security",
+    relatedSlugs: ["sha256-hash-generator", "bcrypt-hash-generator", "password-strength-checker"],
+  },
 
   // DEV UTILITIES
   {
@@ -99,7 +109,27 @@ export const toolDefs: ToolDef[] = [
   {
     slug: "json-formatter",
     category: "dev-utilities",
-    relatedSlugs: ["base64-encoder-decoder", "url-encoder-decoder", "jwt-decoder"],
+    relatedSlugs: ["json-minify", "json-diff-compare", "base64-encoder-decoder"],
+  },
+  {
+    slug: "json-minify",
+    category: "dev-utilities",
+    relatedSlugs: ["json-formatter", "json-to-csv-converter", "csv-to-json-converter"],
+  },
+  {
+    slug: "json-to-csv-converter",
+    category: "dev-utilities",
+    relatedSlugs: ["csv-to-json-converter", "json-formatter", "json-minify"],
+  },
+  {
+    slug: "csv-to-json-converter",
+    category: "dev-utilities",
+    relatedSlugs: ["json-to-csv-converter", "json-formatter", "json-minify"],
+  },
+  {
+    slug: "json-diff-compare",
+    category: "dev-utilities",
+    relatedSlugs: ["json-formatter", "json-minify", "regex-tester"],
   },
   {
     slug: "base64-encoder-decoder",
@@ -109,7 +139,12 @@ export const toolDefs: ToolDef[] = [
   {
     slug: "url-encoder-decoder",
     category: "dev-utilities",
-    relatedSlugs: ["base64-encoder-decoder", "json-formatter", "slugify-text"],
+    relatedSlugs: ["base64-encoder-decoder", "html-encoder-decoder", "json-formatter"],
+  },
+  {
+    slug: "html-encoder-decoder",
+    category: "dev-utilities",
+    relatedSlugs: ["url-encoder-decoder", "base64-encoder-decoder", "json-formatter"],
   },
   {
     slug: "timestamp-converter",
@@ -162,6 +197,21 @@ export const toolDefs: ToolDef[] = [
     slug: "markdown-preview",
     category: "generators",
     relatedSlugs: ["lorem-ipsum-generator", "json-formatter", "text-case-converter"],
+  },
+  {
+    slug: "qr-code-generator",
+    category: "generators",
+    relatedSlugs: ["url-encoder-decoder", "html-encoder-decoder", "random-string-generator"],
+  },
+  {
+    slug: "word-counter",
+    category: "generators",
+    relatedSlugs: ["character-counter", "whitespace-cleaner", "text-case-converter"],
+  },
+  {
+    slug: "character-counter",
+    category: "generators",
+    relatedSlugs: ["word-counter", "whitespace-cleaner", "text-case-converter"],
   },
 ];
 
